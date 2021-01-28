@@ -23,11 +23,18 @@ namespace TicketReplenisherApp
                 get => groupName;
                 set => groupName = value;
             }
+            private DateTime expirationDate;
+            public DateTime ExpirationDate 
+            {
+                get => expirationDate;
+                set => expirationDate = value;
+            }
 
-            public TariffGroups() : this(default(string)) { }
-            public TariffGroups(string GroupName)
+            public TariffGroups() : this(default(string), default(DateTime)) { }
+            public TariffGroups(string GroupName, DateTime ExpirationDate)
             {
                 this.GroupName = GroupName;
+                this.ExpirationDate = ExpirationDate;
             }
         }
         private decimal priceForTariff;
@@ -36,11 +43,11 @@ namespace TicketReplenisherApp
             set => priceForTariff = value;
             get => priceForTariff;
         }
-        private uint orderedQuantityOfUsages;
-        public uint OrderedQuantityOfUsages
+        private uint quantityOfUsages;
+        public uint QuantityOfUsages
         {
-            set => orderedQuantityOfUsages = value;
-            get => orderedQuantityOfUsages;
+            set => quantityOfUsages = value;
+            get => quantityOfUsages;
         }
         private TariffGroups tariffGroup; 
         public TariffGroups TariffGroup
@@ -50,11 +57,16 @@ namespace TicketReplenisherApp
         }
 
         public TariffManyTransports() : this(default(decimal), default(uint), default(TariffGroups)) { }
-        public TariffManyTransports(decimal PriceForTariff, uint OrderedQuantityOfUsages, TariffGroups TariffGroup)
+        public TariffManyTransports(decimal PriceForTariff, uint QuantityOfUsages, TariffGroups TariffGroup)
         {
             this.PriceForTariff = PriceForTariff;
-            this.OrderedQuantityOfUsages = OrderedQuantityOfUsages;
+            this.QuantityOfUsages = QuantityOfUsages;
             this.TariffGroup = TariffGroup;
+        }
+
+        public override void SetTariffValues(ref DateTime ExpirationDate)
+        {
+            ExpirationDate = TariffGroup.ExpirationDate;
         }
     }
 }

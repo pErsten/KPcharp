@@ -12,19 +12,52 @@ namespace TicketReplenisherApp
         /// A counter for identificator for instance of this class
         /// Do not fucking dare to touch!
         /// </summary>
-        //private static uint ID = 0;
-        //public readonly uint Id;
+        public class UserAccount
+        {
+            private int id;
+            public int Id
+            {
+                private set => id = value;
+                get => id;
+            }
+
+            public enum FacilityCategories : byte
+            {
+                NoFacilities,
+                Student,
+                Schoolchild
+            }
+            private FacilityCategories facilityCategory;
+            public FacilityCategories FacilityCategory
+            {
+                get => facilityCategory;
+                set => facilityCategory = value;
+            }
+            private string name;
+            public string Name
+            {
+                set => name = value;
+                get => name;
+            }
+            private string surname;
+            public string Surname
+            {
+                set => surname = value;
+                get => surname;
+            }
+            public UserAccount() : this(default(FacilityCategories), default(string), default(string)) { }
+            public UserAccount(FacilityCategories FacilityCategory, string Name, string Surname)
+            {
+                this.FacilityCategory = FacilityCategory;
+                this.Name = Name;
+                this.Surname = Surname;
+            }
+        }
         private int id;
         public int Id
         {
             private set => id = value;
             get => id;
-        }
-        private string ticketName;
-        public string TicketName
-        {
-            get => ticketName;
-            set => ticketName = value;
         }
         private Tariff tariff;
         public Tariff Tariff
@@ -32,19 +65,34 @@ namespace TicketReplenisherApp
             get => tariff;
             set => tariff = value;
         }
+        private UserAccount account;
+        public UserAccount Account
+        {
+            set => account = value;
+            get => account;
+        }
+        private ulong ticketBarcode;
+        private ulong TicketBarcode
+        {
+            get => ticketBarcode;
+            set => ticketBarcode = value;
+        }
 
-        public Ticket(string TicketName, Tariff Tariff) : this(TicketName)
+        public Ticket() : this(default(ulong)) { }
+        public Ticket(ulong TicketBarcode, Tariff Tariff) : this(TicketBarcode)
         {
             this.Tariff = Tariff;
             this.Tariff.Ticket = this;//creates 1:1 relation between [Ticket] and [Tariff]
         }
-        public Ticket(string TicketName)
+        public Ticket(ulong TicketBarcode)
         {
-            //Id = ++ID;
-            this.TicketName = TicketName;
+            this.TicketBarcode = TicketBarcode;
         }
-        public Ticket() : this(default(string)) { }
 
+        public void TicketSetNewTariff(Tariff Tariff)
+        {
+            this.Tariff = Tariff;
+        }
         public void TicketLanguageUpdate()
         {
 

@@ -14,5 +14,6 @@ namespace TicketReplenisherApp
             private set => id = value;
             get => id;
         }
+        public abstract void SetTariffValues(ref DateTime ExpirationDate);
     }
 }

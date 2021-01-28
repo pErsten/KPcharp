@@ -17,7 +17,11 @@ namespace TicketReplenisherApp
         private ITariffType tariffType;
         public ITariffType TariffType
         {
-            set => tariffType = value;
+            set
+            {
+                tariffType = value;
+                tariffType.SetTariffValues(ref expirationDate);
+            }
             get => tariffType;
         }
         private uint quantityOfUses;
@@ -25,6 +29,12 @@ namespace TicketReplenisherApp
         {
             set => quantityOfUses = value;
             get => quantityOfUses;
+        }
+        private DateTime expirationDate;
+        public DateTime ExpirationDate
+        {
+            get => expirationDate;
+            set => expirationDate = value;
         }
 
         private int ticketId;
@@ -43,8 +53,8 @@ namespace TicketReplenisherApp
         public Tariff() : this(default(ITariffType), default(uint), default(Ticket)) { }
         public Tariff(ITariffType TariffType, uint QuantityOfUses, Ticket Ticket)
         {
-            this.TariffType = TariffType;
             this.QuantityOfUses = QuantityOfUses;
+            this.TariffType = TariffType;
             this.Ticket = Ticket;
             this.Ticket.Tariff = this;//this creates 1:1 relation between [Ticket] and [Tariff]
         }

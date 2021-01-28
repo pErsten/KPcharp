@@ -27,5 +27,10 @@ namespace TicketReplenisherApp
             this.MinPurchasedQuantityOfUsages = MinPurchasedQuantityOfUsages;
             this.PriceForOneUsage = PriceForOneUsage;
         }
+
+        public override void SetTariffValues(ref DateTime ExpirationDate)
+        {
+            ExpirationDate = DateTime.MaxValue;
+        }
     }
 }
