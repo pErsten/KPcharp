@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace TicketReplenisherApp
 {
+    [Table("TariffOneTransport")]
     class TariffOneTransport : ITariffType
     {
         private decimal priceForOneUsage;
@@ -12,17 +14,17 @@ namespace TicketReplenisherApp
             set => priceForOneUsage = value;
             get => priceForOneUsage;
         }
-        private uint minOrderedQuantityOfUsages;
-        public uint MinOrderedQuantityOfUsages
+        private uint minPurchasedQuantityOfUsages;
+        public uint MinPurchasedQuantityOfUsages
         {
-            set => minOrderedQuantityOfUsages = value;
-            get => minOrderedQuantityOfUsages;
+            set => minPurchasedQuantityOfUsages = value;
+            get => minPurchasedQuantityOfUsages;
         }
 
         public TariffOneTransport() : this(default(uint), default(decimal)) { }
-        public TariffOneTransport(uint MinOrderedQuantityOfUsages, decimal PriceForOneUsage)
+        public TariffOneTransport(uint MinPurchasedQuantityOfUsages, decimal PriceForOneUsage)
         {
-            this.MinOrderedQuantityOfUsages = MinOrderedQuantityOfUsages;
+            this.MinPurchasedQuantityOfUsages = MinPurchasedQuantityOfUsages;
             this.PriceForOneUsage = PriceForOneUsage;
         }
     }

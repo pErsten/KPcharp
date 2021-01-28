@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,7 +16,9 @@ namespace TicketReplenisherApp
         public Form1()
         {
             InitializeComponent();
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDBContext>();
+            var options = optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TicketReplenisherDB;Trusted_Connection=True;").Options;
+            using (ApplicationDBContext DB = new ApplicationDBContext(options));
         }
-
     }
 }

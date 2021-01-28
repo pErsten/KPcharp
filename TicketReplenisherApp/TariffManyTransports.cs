@@ -1,13 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace TicketReplenisherApp
 {
+    [Table("TariffManyTransports")]
     class TariffManyTransports : ITariffType
     {
+        [Table("TariffGroups")]
         public class TariffGroups
         {
+            private int id;
+            public int Id
+            {
+                private set => id = value;
+                get => id;
+            }
             private string groupName;
             public string GroupName
             {
