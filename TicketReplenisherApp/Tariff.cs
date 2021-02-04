@@ -6,7 +6,7 @@ using System.Text;
 namespace TicketReplenisherApp
 {
     [Table("Tariffs")]
-    class Tariff
+    public class Tariff
     {
         private int id;
         public int Id
@@ -20,21 +20,26 @@ namespace TicketReplenisherApp
             set
             {
                 tariffType = value;
-                tariffType.SetTariffValues(ref expirationDate);
             }
             get => tariffType;
         }
-        private uint quantityOfUses;
-        public uint QuantityOfUses
+        private int quantityOfUses;
+        public int QuantityOfUses
         {
             set => quantityOfUses = value;
             get => quantityOfUses;
         }
-        private DateTime expirationDate;
-        public DateTime ExpirationDate
+        private DateTime startDate;
+        public DateTime StartDate
         {
-            get => expirationDate;
-            set => expirationDate = value;
+            get => startDate;
+            set => startDate = value;
+        }
+        private DateTime endDate;
+        public DateTime EndDate
+        {
+            get => endDate;
+            set => endDate = value;
         }
 
         private int ticketId;
@@ -50,13 +55,58 @@ namespace TicketReplenisherApp
             get => ticket;
         }
 
-        public Tariff() : this(default(ITariffType), default(uint), default(Ticket)) { }
-        public Tariff(ITariffType TariffType, uint QuantityOfUses, Ticket Ticket)
+        public Tariff() : this(default(int), default(Ticket)) { }
+        //TariffOneTransport
+        public Tariff(int QuantityOfUses, Ticket Ticket)
+        {
+            this.QuantityOfUses = QuantityOfUses;
+            this.TariffType = TariffOneTransport.GetTariffOneTransport(QuantityOfUses);
+            this.StartDate = DateTime.MinValue;
+            this.EndDate = DateTime.MaxValue;
+        }
+        //TariffManyTransports
+        public Tariff(TariffManyTransports TariffType, Ticket Ticket)
+        {
+            this.QuantityOfUses = TariffType.QuantityOfUsages;
+            this.TariffType = TariffType;
+            (this.StartDate, this.EndDate) = TariffType.GetTariffDates();
+        }
+
+        public void SetTariffToTicket(Ticket Ticket)
+        {
+            if(this.TariffType is TariffManyTransports)
+            {
+                if (Ticket.Tariff.EndDate.Year == this.EndDate.Year && Ticket.Tariff.EndDate.Month == this.EndDate.Month)
+                    Ticket.MonthsStreak++;
+                else
+                    Ticket.MonthsStreak = 0;
+            }
+            this.Ticket = Ticket;
+            this.Ticket.Tariff = this;
+        }
+        
+        public decimal CalculatePrice(bool isPayedByCard)
+        {
+            decimal Price;
+            if (this.TariffType is TariffOneTransport) 
+                Price = this.QuantityOfUses * (ConstValues.ONE_USAGE_COST - ConstValues.COEFFICIENT_QUANTIFICATOR * (this.TariffType as TariffOneTransport).CoefficientNumber);//Formula 2.1
+            else
+            {
+                Price = (this.TariffType as TariffManyTransports).PriceForTariff;//Formula 2.2
+                
+                decimal x = 1 - Convert.ToDecimal(Ticket.MonthsStreak/ConstValues.NUMBER_OF_MONTHS_FOR_SUM_DECREASE)/100;
+                Price *= x > ConstValues.MIN_COEFFICIENT_OF_TARIFF ? x : ConstValues.MIN_COEFFICIENT_OF_TARIFF;//Formula 2.3
+            }
+            if (isPayedByCard)
+                Price *= 0.005M;//Formula 2.4
+            return Price;
+        }
+        /*public Tariff(ITariffType TariffType, int QuantityOfUses, Ticket Ticket)
         {
             this.QuantityOfUses = QuantityOfUses;
             this.TariffType = TariffType;
             this.Ticket = Ticket;
             this.Ticket.Tariff = this;//this creates 1:1 relation between [Ticket] and [Tariff]
-        }
+        }*/
     }
 }

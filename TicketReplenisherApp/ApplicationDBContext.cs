@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TicketReplenisherApp
 {
-    class ApplicationDBContext : DbContext
+    public partial class ApplicationDBContext : DbContext
     { 
         public DbSet<TariffManyTransports> TariffManyTransportsTable { get; set; }
         public DbSet<TariffOneTransport> TariffOneTransportTable { get; set; }
@@ -14,6 +14,7 @@ namespace TicketReplenisherApp
         public DbSet<TariffManyTransports.TariffGroups> TariffGroupsTable { get; set; }
         public DbSet<Ticket.UserAccount> UserAccounts { get; set; }
         
+        public ApplicationDBContext() { }
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
             Database.EnsureDeleted();

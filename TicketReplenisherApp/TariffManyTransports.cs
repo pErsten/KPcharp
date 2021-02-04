@@ -6,7 +6,7 @@ using System.Text;
 namespace TicketReplenisherApp
 {
     [Table("TariffManyTransports")]
-    class TariffManyTransports : ITariffType
+    public class TariffManyTransports : ITariffType
     {
         [Table("TariffGroups")]
         public class TariffGroups
@@ -17,24 +17,46 @@ namespace TicketReplenisherApp
                 private set => id = value;
                 get => id;
             }
+
+            [Obsolete]
             private string groupName;
+            [Obsolete]
             public string GroupName
             {
                 get => groupName;
                 set => groupName = value;
             }
-            private DateTime expirationDate;
-            public DateTime ExpirationDate 
+            private DateTime startDate;
+            public DateTime StartDate 
             {
-                get => expirationDate;
-                set => expirationDate = value;
+                get => startDate;
+                set => startDate = value;
+            }
+            private DateTime endDate;
+            public DateTime EndDate
+            {
+                get => endDate;
+                set => endDate = value;
+            }
+            private float coefficientNumber;
+            public float CoefficientNumber
+            {
+                get => coefficientNumber;
+                set => coefficientNumber = value;
             }
 
-            public TariffGroups() : this(default(string), default(DateTime)) { }
-            public TariffGroups(string GroupName, DateTime ExpirationDate)
+            public TariffGroups() : this(default(string), default(DateTime), default(float)) { }
+            public TariffGroups(string GroupName, DateTime StartDate, float CoefficientNumber)
             {
                 this.GroupName = GroupName;
-                this.ExpirationDate = ExpirationDate;
+                this.StartDate = StartDate;
+                this.EndDate = new DateTime(StartDate.Year, StartDate.Month, DateTime.DaysInMonth(StartDate.Year, StartDate.Month));
+                this.CoefficientNumber = CoefficientNumber;
+            }
+
+            public override string ToString()
+            {
+                return $"TariffGroup: id - {Id, 2}, group name - {GroupName, -23}, start - {StartDate:dd.MM.yyyy}, end - {EndDate:dd.MM.yyyy}, coefficient - {CoefficientNumber:0.000}";
             }
         }
         private decimal priceForTariff;
@@ -43,8 +65,8 @@ namespace TicketReplenisherApp
             set => priceForTariff = value;
             get => priceForTariff;
         }
-        private uint quantityOfUsages;
-        public uint QuantityOfUsages
+        private int quantityOfUsages;
+        public int QuantityOfUsages
         {
             set => quantityOfUsages = value;
             get => quantityOfUsages;
@@ -56,17 +78,22 @@ namespace TicketReplenisherApp
             set => tariffGroup = value;
         }
 
-        public TariffManyTransports() : this(default(decimal), default(uint), default(TariffGroups)) { }
-        public TariffManyTransports(decimal PriceForTariff, uint QuantityOfUsages, TariffGroups TariffGroup)
+        public TariffManyTransports() : this(default(int), default(TariffGroups)) { }
+        public TariffManyTransports(int QuantityOfUsages, TariffGroups TariffGroup)
         {
-            this.PriceForTariff = PriceForTariff;
             this.QuantityOfUsages = QuantityOfUsages;
             this.TariffGroup = TariffGroup;
+            //realisation of formula 2.2
+            this.PriceForTariff = Convert.ToDecimal(ConstValues.GetTariffPrice(QuantityOfUsages) * TariffGroup.CoefficientNumber);
         }
 
-        public override void SetTariffValues(ref DateTime ExpirationDate)
+        public (DateTime, DateTime) GetTariffDates()
         {
-            ExpirationDate = TariffGroup.ExpirationDate;
+            return (TariffGroup.StartDate, TariffGroup.EndDate);
+        }
+        public override string ToString()
+        {
+            return $"TariffManyTransports: id - {Id, 2}, tariff price - {PriceForTariff:C2}, quantity of usages - {QuantityOfUsages}, tariff group id - {TariffGroup.Id}";
         }
     }
 }

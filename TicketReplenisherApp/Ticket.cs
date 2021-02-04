@@ -6,12 +6,8 @@ using System.Text;
 namespace TicketReplenisherApp
 {
     [Table("Tickets")]
-    class Ticket
+    public class Ticket
     {
-        /// <summary>
-        /// A counter for identificator for instance of this class
-        /// Do not fucking dare to touch!
-        /// </summary>
         public class UserAccount
         {
             private int id;
@@ -21,6 +17,18 @@ namespace TicketReplenisherApp
                 get => id;
             }
 
+            private int ticketId;
+            public int TicketId
+            {
+                get => ticketId;
+                set => ticketId = value;
+            }
+            private Ticket ticket;
+            public Ticket Ticket
+            {
+                get => ticket;
+                set => ticket = value;
+            }
             public enum FacilityCategories : byte
             {
                 NoFacilities,
@@ -53,6 +61,7 @@ namespace TicketReplenisherApp
                 this.Surname = Surname;
             }
         }
+
         private int id;
         public int Id
         {
@@ -71,31 +80,34 @@ namespace TicketReplenisherApp
             set => account = value;
             get => account;
         }
-        private ulong ticketBarcode;
-        private ulong TicketBarcode
+        private long ticketBarcode;
+        private long TicketBarcode
         {
             get => ticketBarcode;
             set => ticketBarcode = value;
         }
+        private int monthsStreak;
+        public int MonthsStreak
+        {
+            get => monthsStreak;
+            set => monthsStreak = value;
+        }
 
-        public Ticket() : this(default(ulong)) { }
-        public Ticket(ulong TicketBarcode, Tariff Tariff) : this(TicketBarcode)
+        public Ticket() : this(default(long)) { }
+        /*public Ticket(long TicketBarcode, Tariff Tariff) : this(TicketBarcode)
         {
             this.Tariff = Tariff;
             this.Tariff.Ticket = this;//creates 1:1 relation between [Ticket] and [Tariff]
-        }
-        public Ticket(ulong TicketBarcode)
+        }*/
+        public Ticket(long TicketBarcode)
         {
             this.TicketBarcode = TicketBarcode;
+            this.MonthsStreak = 0;
         }
 
-        public void TicketSetNewTariff(Tariff Tariff)
+        /*public void TicketSetNewTariff(Tariff Tariff)
         {
             this.Tariff = Tariff;
-        }
-        public void TicketLanguageUpdate()
-        {
-
-        }
+        }*/
     }
 }

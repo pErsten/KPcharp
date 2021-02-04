@@ -2,35 +2,43 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Linq;
 
 namespace TicketReplenisherApp
 {
     [Table("TariffOneTransport")]
-    class TariffOneTransport : ITariffType
+    public class TariffOneTransport : ITariffType
     {
-        private decimal priceForOneUsage;
-        public decimal PriceForOneUsage
+        private int coefficientNumber;
+        public int CoefficientNumber
         {
-            set => priceForOneUsage = value;
-            get => priceForOneUsage;
+            set => coefficientNumber = value;
+            get => coefficientNumber;
         }
-        private uint minPurchasedQuantityOfUsages;
-        public uint MinPurchasedQuantityOfUsages
+        private int minUsagesQuantityForCoefficient;
+        public int MinUsagesQuantityForCoefficient
         {
-            set => minPurchasedQuantityOfUsages = value;
-            get => minPurchasedQuantityOfUsages;
-        }
-
-        public TariffOneTransport() : this(default(uint), default(decimal)) { }
-        public TariffOneTransport(uint MinPurchasedQuantityOfUsages, decimal PriceForOneUsage)
-        {
-            this.MinPurchasedQuantityOfUsages = MinPurchasedQuantityOfUsages;
-            this.PriceForOneUsage = PriceForOneUsage;
+            set => minUsagesQuantityForCoefficient = value;
+            get => minUsagesQuantityForCoefficient;
         }
 
-        public override void SetTariffValues(ref DateTime ExpirationDate)
+        public TariffOneTransport() : this(default(int), default(int)) { }
+        public TariffOneTransport(int CoefficientNumber, int MinUsagesQuantityForCoefficient)
         {
-            ExpirationDate = DateTime.MaxValue;
+            this.CoefficientNumber = CoefficientNumber;
+            this.MinUsagesQuantityForCoefficient = MinUsagesQuantityForCoefficient;
+        }
+
+        public override string ToString()
+        {
+            return $"TariffOneTransport: id - {Id}, coefficient for one usage - {CoefficientNumber}, min usage quantity - {MinUsagesQuantityForCoefficient, 2}";
+        }
+        public static TariffOneTransport GetTariffOneTransport(int QuantityOfUsages)
+        {
+            return Form1.DB.TariffOneTransportTable
+                            .OrderByDescending(x => x.minUsagesQuantityForCoefficient)
+                            .Where(x => x.minUsagesQuantityForCoefficient <= QuantityOfUsages)
+                            .FirstOrDefault();
         }
     }
 }
