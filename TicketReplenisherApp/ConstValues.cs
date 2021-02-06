@@ -40,7 +40,7 @@ namespace TicketReplenisherApp
                 92 => 575f,
                 124 => 770f,
                 int.MaxValue => 1300f,
-                _ => -1f
+                _ => throw new ArgumentOutOfRangeException("sepssis")
             };
         }
     }

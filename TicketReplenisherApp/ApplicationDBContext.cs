@@ -13,6 +13,7 @@ namespace TicketReplenisherApp
         public DbSet<Ticket> TicketTable { get; set; }
         public DbSet<TariffManyTransports.TariffGroups> TariffGroupsTable { get; set; }
         public DbSet<Ticket.UserAccount> UserAccounts { get; set; }
+        public DbSet<OrderedTariffs> OrderedTariffTable { get; set; }
         
         public ApplicationDBContext() { }
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
@@ -21,9 +22,18 @@ namespace TicketReplenisherApp
             Database.EnsureCreated();
         }
 
-        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TicketReplenisherDB;Trusted_Connection=True;");
-        }*/
+            //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TicketReplenisherDB;Trusted_Connection=True;");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<OrderedTariffs>().HasOne(ot => ot.Tariff).WithMany().HasForeignKey(ot => ot.TariffId).OnDelete(DeleteBehavior.Cascade);// HasKey(ot => new { ot.TariffId, ot.DateOfOrder });
+            modelBuilder.Entity<OrderedTariffs>().HasKey(ot => new { ot.TariffId, ot.DateOfOrder });
+            //modelBuilder.Entity<OrderedTariffs>().HasKey(ot => ot.DateOfOrder);
+
+            modelBuilder.Entity<OrderedTariffs>().HasIndex(ot => new { ot.DateOfOrder, ot.TariffId}).IsUnique().HasDatabaseName("IX_ReversedClusteredIndex");
+        }
     }
 }
