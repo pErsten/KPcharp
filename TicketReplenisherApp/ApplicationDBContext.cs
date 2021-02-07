@@ -12,7 +12,7 @@ namespace TicketReplenisherApp
         public DbSet<Tariff> TariffTable { get; set; }
         public DbSet<Ticket> TicketTable { get; set; }
         public DbSet<TariffManyTransports.TariffGroups> TariffGroupsTable { get; set; }
-        public DbSet<Ticket.UserAccount> UserAccounts { get; set; }
+        public DbSet<Ticket.UserAccount> UserAccountTable { get; set; }
         public DbSet<OrderedTariffs> OrderedTariffTable { get; set; }
         
         public ApplicationDBContext() { }

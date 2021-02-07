@@ -18,13 +18,11 @@ namespace TicketReplenisherApp
                 get => id;
             }
 
-            [Obsolete]
-            private string groupName;
-            [Obsolete]
-            public string GroupName
+            private int groupCategory;
+            public ConstValues.FacilityCategories GroupCategory
             {
-                get => groupName;
-                set => groupName = value;
+                get => (ConstValues.FacilityCategories)groupCategory;
+                set => groupCategory = (int)value;
             }
             private DateTime startDate;
             public DateTime StartDate 
@@ -45,10 +43,10 @@ namespace TicketReplenisherApp
                 set => coefficientNumber = value;
             }
 
-            public TariffGroups() : this(default(string), default(DateTime), default(float)) { }
-            public TariffGroups(string GroupName, DateTime StartDate, float CoefficientNumber)
+            public TariffGroups() : this(default(ConstValues.FacilityCategories), default(DateTime), default(float)) { }
+            public TariffGroups(ConstValues.FacilityCategories GroupCategory, DateTime StartDate, float CoefficientNumber)
             {
-                this.GroupName = GroupName;
+                this.GroupCategory = GroupCategory;
                 this.StartDate = StartDate;
                 this.EndDate = new DateTime(StartDate.Year, StartDate.Month, DateTime.DaysInMonth(StartDate.Year, StartDate.Month));
                 this.CoefficientNumber = CoefficientNumber;
@@ -56,7 +54,7 @@ namespace TicketReplenisherApp
 
             public override string ToString()
             {
-                return $"TariffGroup: id - {Id, 2}, group name - {GroupName, -23}, start - {StartDate:dd.MM.yyyy}, end - {EndDate:dd.MM.yyyy}, coefficient - {CoefficientNumber:0.000}";
+                return $"TariffGroup: id - {Id, 2}, group name - {GroupCategory, -23}, start - {StartDate:dd.MM.yyyy}, end - {EndDate:dd.MM.yyyy}, coefficient - {CoefficientNumber:0.000}";
             }
         }
         private decimal priceForTariff;

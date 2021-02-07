@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TicketReplenisherApp
 {
-    static class ConstValues
+    public static class ConstValues
     {
         /// <summary>
         /// For TariffOneTransport
@@ -42,6 +42,16 @@ namespace TicketReplenisherApp
                 int.MaxValue => 1300f,
                 _ => throw new ArgumentOutOfRangeException("sepssis")
             };
+        }
+
+
+
+
+        public enum FacilityCategories : byte
+        {
+            Full,
+            Student,
+            Schoolchild
         }
     }
 }

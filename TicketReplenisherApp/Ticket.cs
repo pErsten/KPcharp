@@ -29,17 +29,11 @@ namespace TicketReplenisherApp
                 get => ticket;
                 set => ticket = value;
             }
-            public enum FacilityCategories : byte
+            private int facilityCategory;
+            public ConstValues.FacilityCategories FacilityCategory
             {
-                NoFacilities,
-                Student,
-                Schoolchild
-            }
-            private FacilityCategories facilityCategory;
-            public FacilityCategories FacilityCategory
-            {
-                get => facilityCategory;
-                set => facilityCategory = value;
+                get => (ConstValues.FacilityCategories)facilityCategory;
+                set => facilityCategory = (int)value;
             }
             private string name;
             public string Name
@@ -53,12 +47,13 @@ namespace TicketReplenisherApp
                 set => surname = value;
                 get => surname;
             }
-            public UserAccount() : this(default(FacilityCategories), default(string), default(string)) { }
-            public UserAccount(FacilityCategories FacilityCategory, string Name, string Surname)
+            public UserAccount() : this(default(ConstValues.FacilityCategories), default(string), default(string), default(Ticket)) { }
+            public UserAccount(ConstValues.FacilityCategories FacilityCategory, string Name, string Surname, Ticket Ticket)
             {
                 this.FacilityCategory = FacilityCategory;
                 this.Name = Name;
                 this.Surname = Surname;
+                this.Ticket = Ticket;
             }
         }
 
@@ -81,7 +76,7 @@ namespace TicketReplenisherApp
             get => account;
         }
         private long ticketBarcode;
-        private long TicketBarcode
+        public long TicketBarcode
         {
             get => ticketBarcode;
             set => ticketBarcode = value;
