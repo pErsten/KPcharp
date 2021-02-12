@@ -36,9 +36,9 @@ namespace TicketReplenisherApp
         public static TariffOneTransport GetTariffOneTransport(int QuantityOfUsages)
         {
             return Form1.DB.TariffOneTransportTable
-                            .OrderByDescending(x => x.minUsagesQuantityForCoefficient)
-                            .Where(x => x.minUsagesQuantityForCoefficient <= QuantityOfUsages)
-                            .FirstOrDefault();
+                           .OrderByDescending(x => x.MinUsagesQuantityForCoefficient)
+                           .Where(x => x.MinUsagesQuantityForCoefficient <= QuantityOfUsages)
+                           .FirstOrDefault();
         }
     }
 }

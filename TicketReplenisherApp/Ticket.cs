@@ -69,6 +69,12 @@ namespace TicketReplenisherApp
             get => tariff;
             set => tariff = value;
         }
+        private DateTime expireDate;
+        public DateTime ExpireDate
+        {
+            get => expireDate;
+            set => expireDate = value;
+        }
         private UserAccount account;
         public UserAccount Account
         {
@@ -96,6 +102,7 @@ namespace TicketReplenisherApp
         }*/
         public Ticket(long TicketBarcode)
         {
+            this.ExpireDate = DateTime.MinValue;
             this.TicketBarcode = TicketBarcode;
             this.MonthsStreak = 0;
         }

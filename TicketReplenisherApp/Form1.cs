@@ -16,6 +16,9 @@ namespace TicketReplenisherApp
 {
     public partial class Form1 : Form
     {
+        DateTime StartMonthDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+        DateTime StartSecondHalfMonthDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) / 2);
+
         public Form1()
         {
             InitializeComponent();
@@ -42,9 +45,7 @@ namespace TicketReplenisherApp
             //myChart.Series?.Remove(myChart.Series?.Last());
             myChart.Series.Add(mySeriesOfPoint);*/
             //--------------------
-            DateTime StartMonthDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            DateTime StartSecondHalfMonthDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) / 2);
-
+            
             DB.TariffOneTransportTable.Add(new TariffOneTransport(0, 1));
             DB.TariffOneTransportTable.Add(new TariffOneTransport(1, 10));
             DB.TariffOneTransportTable.Add(new TariffOneTransport(2, 20));
@@ -86,9 +87,10 @@ namespace TicketReplenisherApp
             DB.TicketTable.Add(new Ticket(3));
             DB.TicketTable.Add(new Ticket(4));
             DB.SaveChanges();
-            DB.UserAccountTable.Add(new Ticket.UserAccount(ConstValues.FacilityCategories.Student, "Vladislav", "Paplinsky", DB.TicketTable.ToList()[0]));
-            DB.UserAccountTable.Add(new Ticket.UserAccount(ConstValues.FacilityCategories.Student, "David",     "Zhezhkov",  DB.TicketTable.ToList()[1]));
-            DB.UserAccountTable.Add(new Ticket.UserAccount(ConstValues.FacilityCategories.Full,    "Peshkesh",  "Dozhev",    DB.TicketTable.ToList()[2]));
+            DB.UserAccountTable.Add(new Ticket.UserAccount(ConstValues.FacilityCategories.Student,     "Vladislav", "Paplinsky", DB.TicketTable.ToList()[0]));
+            DB.UserAccountTable.Add(new Ticket.UserAccount(ConstValues.FacilityCategories.Student,     "David",     "Zhezhkov",  DB.TicketTable.ToList()[1]));
+            DB.UserAccountTable.Add(new Ticket.UserAccount(ConstValues.FacilityCategories.Full,        "Peshkesh",  "Dozhev",    DB.TicketTable.ToList()[2]));
+            DB.UserAccountTable.Add(new Ticket.UserAccount(ConstValues.FacilityCategories.Schoolchild, "Mao Zedong","Sasha",     DB.TicketTable.ToList()[3]));
             DB.SaveChanges();
 
             
@@ -147,6 +149,8 @@ namespace TicketReplenisherApp
         //
 
         Ticket ticket { get; set; }
+        int tariffOneTransportUses { get; set; }
+        Tariff tariff { get; set; }
 
         private void OpenWindow2(Ticket ticket)
         {
@@ -171,6 +175,16 @@ namespace TicketReplenisherApp
                                                         $"{(i + 1 < DB.TariffOneTransportTable.Count() ? "-" + (DB.TariffOneTransportTable.ToList()[i + 1].MinUsagesQuantityForCoefficient - 1).ToString() : "+"),-18}" +
                                                         $"{ConstValues.ONE_USAGE_COST - DB.TariffOneTransportTable.ToList()[i].CoefficientNumber * ConstValues.COEFFICIENT_QUANTIFICATOR:C2}");
             }
+            buttonManyTransportTariff1.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 46);
+            buttonManyTransportTariff2.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 62);
+            buttonManyTransportTariff3.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 92);
+            buttonManyTransportTariff4.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 124);
+            buttonManyTransportTariff5.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == int.MaxValue);
+            buttonManyTransportTariff6.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate           && x.QuantityOfUsages == 46);
+            buttonManyTransportTariff7.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate           && x.QuantityOfUsages == 62);
+            buttonManyTransportTariff8.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate           && x.QuantityOfUsages == 92);
+            buttonManyTransportTariff9.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate           && x.QuantityOfUsages == 124);
+            buttonManyTransportTariff10.Visible = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate           && x.QuantityOfUsages == int.MaxValue);
         }
 
         private void buttonWindow2Exit_Click(object sender, EventArgs e)
@@ -181,7 +195,26 @@ namespace TicketReplenisherApp
             panelWindow1.Visible = true;
             panelWindow2.Visible = false;
             panelWindow2Central.Visible = true;
+            panelWindow2_1Central.Visible = false;
+            panelWindow2_2Central.Visible = false;
             panelWindow2_3Central.Visible = false;
+            numericUpDown1.Value = 0;
+            panelIsByCash.BackColor = Color.Yellow;
+            panelIsByCard.BackColor = Color.Sienna;
+            labelIsByCard.Visible = false;
+            labelIsByCardHeader.Visible = false;
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            panelWindow2Central.Visible = false;
+            panelWindow2_1Central.Visible = true;
+            labelWindow2_1TariffCost.Text = $"{0:C2}";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            panelWindow2Central.Visible = false;
+            panelWindow2_2Central.Visible = true;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -190,10 +223,177 @@ namespace TicketReplenisherApp
             panelWindow2_3Central.Visible = true;
         }
 
+        //
+        // Window 2_1
+        //
+
+        private void buttonWindow2_1Next_Click(object sender, EventArgs e)
+        {
+            //panelWindowBlocker.Visible = true;
+            if (tariffOneTransportUses == 0)
+                return;
+            //panelWindow2.Visible = false;
+            tariff = new Tariff(tariffOneTransportUses);
+            panelWindow2.Visible = false;
+            PanelWindowOrderPrepareOpen();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            tariffOneTransportUses = (int)(sender as NumericUpDown).Value;
+            if (tariffOneTransportUses > 0)
+            {
+                TariffOneTransport tariff = TariffOneTransport.GetTariffOneTransport(tariffOneTransportUses);
+                labelWindow2_1TariffCost.Text = $"{tariffOneTransportUses * (ConstValues.ONE_USAGE_COST - tariff.CoefficientNumber * ConstValues.COEFFICIENT_QUANTIFICATOR):C2}";
+            }
+            else
+                labelWindow2_1TariffCost.Text = $"{0:C2}";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            panelWindow2Central.Visible = true;
+            panelWindow2_1Central.Visible = false;
+            numericUpDown1.Value = 0;
+        }
+
+        //
+        //Window 2_2
+        //
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            panelWindow2Central.Visible = true;
+            panelWindow2_2Central.Visible = false;
+        }
+
+        private void buttonManyTransportTariff1_Click(object sender, EventArgs e)
+        {
+            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 46).FirstOrDefault());
+            panelWindow2.Visible = false;
+            PanelWindowOrderPrepareOpen();
+        }
+
+        private void buttonManyTransportTariff2_Click(object sender, EventArgs e)
+        {
+            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 62).FirstOrDefault());
+            panelWindow2.Visible = false;
+            PanelWindowOrderPrepareOpen();
+        }
+
+        private void buttonManyTransportTariff3_Click(object sender, EventArgs e)
+        {
+            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 92).FirstOrDefault());
+            panelWindow2.Visible = false;
+            PanelWindowOrderPrepareOpen();
+        }
+
+        private void buttonManyTransportTariff4_Click(object sender, EventArgs e)
+        {
+            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 124).FirstOrDefault());
+            panelWindow2.Visible = false;
+            PanelWindowOrderPrepareOpen();
+        }
+
+        private void buttonManyTransportTariff5_Click(object sender, EventArgs e)
+        {
+            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == int.MaxValue).FirstOrDefault());
+            panelWindow2.Visible = false;
+            PanelWindowOrderPrepareOpen();
+        }
+
+        private void buttonManyTransportTariff6_Click(object sender, EventArgs e)
+        {
+            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == 46).FirstOrDefault());
+            panelWindow2.Visible = false;
+            PanelWindowOrderPrepareOpen();
+        }
+
+        private void buttonManyTransportTariff7_Click(object sender, EventArgs e)
+        {
+            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == 62).FirstOrDefault());
+            panelWindow2.Visible = false;
+            PanelWindowOrderPrepareOpen();
+        }
+
+        private void buttonManyTransportTariff8_Click(object sender, EventArgs e)
+        {
+            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == 92).FirstOrDefault());
+            panelWindow2.Visible = false;
+            PanelWindowOrderPrepareOpen();
+        }
+
+        private void buttonManyTransportTariff9_Click(object sender, EventArgs e)
+        {
+            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == 124).FirstOrDefault());
+            panelWindow2.Visible = false;
+            PanelWindowOrderPrepareOpen();
+        }
+
+        private void buttonManyTransportTariff10_Click(object sender, EventArgs e)
+        {
+            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == int.MaxValue).FirstOrDefault());
+            panelWindow2.Visible = false;
+            PanelWindowOrderPrepareOpen();
+        }
+
+        //
+        // Window 2_3
+        //
+
         private void buttonWindow2_3Back_Click(object sender, EventArgs e)
         {
             panelWindow2Central.Visible = true;
             panelWindow2_3Central.Visible = false;
         }
+
+        //
+        // Window Order Prepare
+        //
+
+        private void PanelWindowOrderPrepareOpen()
+        {
+            panelWindowOrderPrepare.Visible = true;
+            panelWindowOrderPrepare.BringToFront();
+            (decimal totalPrice, int MonthsStreak, decimal MonthsStreakDecrease) = tariff.CalculatePriceAndMonthsStreak(false, ticket);
+            if (tariff.TariffType is TariffManyTransports)
+            {
+                labelMonthsOrderedHeader.Text = $"Знижка за {MonthsStreak - 1} щомісячних замовлених тарифів: ";
+                labelMonthsOrdered.Text = $"{MonthsStreakDecrease:##0.##%}";
+            }
+            labelTotalPrice.Text = $"{totalPrice:C2}";
+        }
+
+        private void buttonIsByCash_Click(object sender, EventArgs e)
+        {
+            panelIsByCash.BackColor = Color.Yellow;
+            panelIsByCard.BackColor = Color.Sienna;
+            labelIsByCard.Visible = false;
+            labelIsByCardHeader.Visible = false;
+            (decimal totalPrice, _, _) = tariff.CalculatePriceAndMonthsStreak(false, ticket);
+            labelTotalPrice.Text = $"{totalPrice:C2}";
+        }
+
+        private void buttonIsByCard_Click(object sender, EventArgs e)
+        {
+            panelIsByCash.BackColor = Color.Sienna;
+            panelIsByCard.BackColor = Color.Yellow;
+            labelIsByCard.Visible = true;
+            labelIsByCardHeader.Visible = true;
+            (decimal totalPrice, _, _) = tariff.CalculatePriceAndMonthsStreak(true, ticket);
+            labelTotalPrice.Text = $"{totalPrice:C2}";
+        }
+
+        private void buttonWindowOrderPrepareCancel_Click(object sender, EventArgs e)
+        {
+            panelWindowOrderPrepare.Visible = false;
+            panelWindow2.Visible = true;
+            buttonIsByCash_Click(null, null);
+        }
+
+        //--
+
+
+
     }
 }

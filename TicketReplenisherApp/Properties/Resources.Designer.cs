@@ -63,9 +63,39 @@ namespace TicketReplenisherApp.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap KyivSmartCart {
+            get {
+                object obj = ResourceManager.GetObject("KyivSmartCart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap TariffList_64 {
             get {
                 object obj = ResourceManager.GetObject("TariffList_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TicketSample {
+            get {
+                object obj = ResourceManager.GetObject("TicketSample", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TicketSample1 {
+            get {
+                object obj = ResourceManager.GetObject("TicketSample1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
