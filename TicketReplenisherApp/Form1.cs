@@ -18,10 +18,12 @@ namespace TicketReplenisherApp
     {
         DateTime StartMonthDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         DateTime StartSecondHalfMonthDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) / 2);
+        public static Form1 ThisForm;
 
         public Form1()
         {
             InitializeComponent();
+            ThisForm = this;
             //--------------
             /*ChartArea chartArea1 = new ChartArea() { Name = "ChartArea1" };
             this.myChart.ChartAreas.Add(chartArea1);
@@ -389,6 +391,19 @@ namespace TicketReplenisherApp
             panelWindowOrderPrepare.Visible = false;
             panelWindow2.Visible = true;
             buttonIsByCash_Click(null, null);
+        }
+
+        private void buttonPayOrder_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Тариф замовлено");
+            tariff.SetTariffToTicket(ticket, labelIsByCard.Visible);
+            buttonWindowOrderPrepareCancel_Click(sender, e);
+            buttonWindow2Exit_Click(sender, e);
+        }
+
+        private void buttonAdministrative_Click(object sender, EventArgs e)
+        {
+
         }
 
         //--

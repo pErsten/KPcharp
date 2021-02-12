@@ -72,7 +72,7 @@ namespace TicketReplenisherApp
             (this.StartDate, this.EndDate) = TariffType.GetTariffDates();
         }
 
-        public void SetTariffToTicket(Ticket Ticket)
+        public void SetTariffToTicket(Ticket Ticket, bool isPayedByCard)
         {
             /*if(this.TariffType is TariffManyTransports)
             {
@@ -82,6 +82,16 @@ namespace TicketReplenisherApp
                     Ticket.MonthsStreak = 0;
             }*/
             this.Ticket = Ticket;
+            if(this.TariffType is TariffManyTransports)
+            {
+                this.Ticket.ExpireDate = this.endDate;
+                (_, this.Ticket.MonthsStreak, _) = CalculatePriceAndMonthsStreak(isPayedByCard, this.Ticket);
+            }
+            else
+            {
+                if (this.Ticket.Tariff is not null && this.Ticket.Tariff.TariffType is TariffOneTransport)
+                    this.QuantityOfUses += this.Ticket.Tariff.QuantityOfUses;
+            }
             this.Ticket.Tariff = this;
         }
         
