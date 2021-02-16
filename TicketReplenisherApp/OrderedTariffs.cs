@@ -28,6 +28,12 @@ namespace TicketReplenisherApp
             get => dateOfOrder;
             private set => dateOfOrder = value;
         }
+        public OrderedTariffs() { }//this(default(int), default(DateTime)) { }
+        public OrderedTariffs(int TariffId, DateTime DateOfOrder)
+        {
+            this.TariffId = TariffId;
+            this.DateOfOrder = DateOfOrder;
+        }
 
         private int quantityOfTariffs;
         public int QuantityOfTariffs

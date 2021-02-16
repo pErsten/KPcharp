@@ -17,6 +17,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TicketReplenisherDB.mdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="TicketReplenisherDB.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

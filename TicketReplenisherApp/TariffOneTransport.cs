@@ -22,7 +22,7 @@ namespace TicketReplenisherApp
             get => minUsagesQuantityForCoefficient;
         }
 
-        public TariffOneTransport() : this(default(int), default(int)) { }
+        public TariffOneTransport() { }
         public TariffOneTransport(int CoefficientNumber, int MinUsagesQuantityForCoefficient)
         {
             this.CoefficientNumber = CoefficientNumber;

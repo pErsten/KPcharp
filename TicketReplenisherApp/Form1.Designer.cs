@@ -99,7 +99,22 @@ namespace TicketReplenisherApp
             this.panelWindowOrderPrepareUp = new System.Windows.Forms.Panel();
             this.buttonPayOrder = new System.Windows.Forms.Button();
             this.buttonWindowOrderPrepareCancel = new System.Windows.Forms.Button();
-            this.buttonAdministrative = new System.Windows.Forms.Button();
+            this.panelWindowAdministrativeMain = new System.Windows.Forms.Panel();
+            this.panelAdministrativeGeneral = new System.Windows.Forms.Panel();
+            this.panelAdministrativeTariffSetup = new System.Windows.Forms.Panel();
+            this.panelGraphHolder = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.comboBoxDatePicker = new System.Windows.Forms.ComboBox();
+            this.comboBoxStartPicker = new System.Windows.Forms.ComboBox();
+            this.comboBoxValuePicker = new System.Windows.Forms.ComboBox();
+            this.panelAdministrativeSide = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button7 = new System.Windows.Forms.Button();
+            this.buttonAdministrativeGeneral = new System.Windows.Forms.Button();
+            this.buttonAdminitrativeManyTrans = new System.Windows.Forms.Button();
+            this.buttonAdministrativeOneTrans = new System.Windows.Forms.Button();
+            this.buttonAdministrativeAll = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.panelStartMenu.SuspendLayout();
             this.panelWindow1.SuspendLayout();
             this.panelWindow2.SuspendLayout();
@@ -125,6 +140,11 @@ namespace TicketReplenisherApp
             this.panelIsByCash.SuspendLayout();
             this.panelIsByCard.SuspendLayout();
             this.panelWindowOrderPrepareUp.SuspendLayout();
+            this.panelWindowAdministrativeMain.SuspendLayout();
+            this.panelAdministrativeTariffSetup.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
+            this.panelAdministrativeSide.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelStartMenu
@@ -751,7 +771,6 @@ namespace TicketReplenisherApp
             this.tableLayoutPanelWindow2Central.Controls.Add(this.button1, 0, 0);
             this.tableLayoutPanelWindow2Central.Controls.Add(this.button3, 2, 0);
             this.tableLayoutPanelWindow2Central.Controls.Add(this.button2, 1, 0);
-            this.tableLayoutPanelWindow2Central.Controls.Add(this.buttonAdministrative, 2, 1);
             this.tableLayoutPanelWindow2Central.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelWindow2Central.Location = new System.Drawing.Point(50, 50);
             this.tableLayoutPanelWindow2Central.Name = "tableLayoutPanelWindow2Central";
@@ -1188,24 +1207,226 @@ namespace TicketReplenisherApp
             this.buttonWindowOrderPrepareCancel.UseVisualStyleBackColor = false;
             this.buttonWindowOrderPrepareCancel.Click += new System.EventHandler(this.buttonWindowOrderPrepareCancel_Click);
             // 
-            // buttonAdministrative
+            // panelWindowAdministrativeMain
             // 
-            this.buttonAdministrative.BackColor = System.Drawing.Color.BlanchedAlmond;
-            this.buttonAdministrative.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonAdministrative.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonAdministrative.FlatAppearance.BorderSize = 0;
-            this.buttonAdministrative.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGoldenrod;
-            this.buttonAdministrative.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Orange;
-            this.buttonAdministrative.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAdministrative.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonAdministrative.Location = new System.Drawing.Point(631, 358);
-            this.buttonAdministrative.Margin = new System.Windows.Forms.Padding(15);
-            this.buttonAdministrative.Name = "buttonAdministrative";
-            this.buttonAdministrative.Size = new System.Drawing.Size(279, 56);
-            this.buttonAdministrative.TabIndex = 1;
-            this.buttonAdministrative.Text = "Вікно адміністратора";
-            this.buttonAdministrative.UseVisualStyleBackColor = false;
-            this.buttonAdministrative.Click += new System.EventHandler(this.buttonAdministrative_Click);
+            this.panelWindowAdministrativeMain.Controls.Add(this.panelAdministrativeGeneral);
+            this.panelWindowAdministrativeMain.Controls.Add(this.panelAdministrativeTariffSetup);
+            this.panelWindowAdministrativeMain.Controls.Add(this.panelAdministrativeSide);
+            this.panelWindowAdministrativeMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelWindowAdministrativeMain.Location = new System.Drawing.Point(0, 0);
+            this.panelWindowAdministrativeMain.Name = "panelWindowAdministrativeMain";
+            this.panelWindowAdministrativeMain.Size = new System.Drawing.Size(1025, 599);
+            this.panelWindowAdministrativeMain.TabIndex = 3;
+            this.panelWindowAdministrativeMain.Visible = false;
+            // 
+            // panelAdministrativeGeneral
+            // 
+            this.panelAdministrativeGeneral.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.panelAdministrativeGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAdministrativeGeneral.Location = new System.Drawing.Point(250, 0);
+            this.panelAdministrativeGeneral.Name = "panelAdministrativeGeneral";
+            this.panelAdministrativeGeneral.Size = new System.Drawing.Size(775, 599);
+            this.panelAdministrativeGeneral.TabIndex = 2;
+            // 
+            // panelAdministrativeTariffSetup
+            // 
+            this.panelAdministrativeTariffSetup.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.panelAdministrativeTariffSetup.Controls.Add(this.panelGraphHolder);
+            this.panelAdministrativeTariffSetup.Controls.Add(this.tableLayoutPanel8);
+            this.panelAdministrativeTariffSetup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAdministrativeTariffSetup.Location = new System.Drawing.Point(250, 0);
+            this.panelAdministrativeTariffSetup.Name = "panelAdministrativeTariffSetup";
+            this.panelAdministrativeTariffSetup.Size = new System.Drawing.Size(775, 599);
+            this.panelAdministrativeTariffSetup.TabIndex = 1;
+            this.panelAdministrativeTariffSetup.Visible = false;
+            // 
+            // panelGraphHolder
+            // 
+            this.panelGraphHolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGraphHolder.Location = new System.Drawing.Point(0, 44);
+            this.panelGraphHolder.Name = "panelGraphHolder";
+            this.panelGraphHolder.Size = new System.Drawing.Size(775, 555);
+            this.panelGraphHolder.TabIndex = 1;
+            // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.ColumnCount = 3;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel8.Controls.Add(this.comboBoxDatePicker, 0, 0);
+            this.tableLayoutPanel8.Controls.Add(this.comboBoxStartPicker, 1, 0);
+            this.tableLayoutPanel8.Controls.Add(this.comboBoxValuePicker, 2, 0);
+            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 1;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(775, 44);
+            this.tableLayoutPanel8.TabIndex = 0;
+            // 
+            // comboBoxDatePicker
+            // 
+            this.comboBoxDatePicker.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.comboBoxDatePicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxDatePicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxDatePicker.FormattingEnabled = true;
+            this.comboBoxDatePicker.Location = new System.Drawing.Point(3, 3);
+            this.comboBoxDatePicker.Name = "comboBoxDatePicker";
+            this.comboBoxDatePicker.Size = new System.Drawing.Size(252, 28);
+            this.comboBoxDatePicker.TabIndex = 0;
+            this.comboBoxDatePicker.SelectedIndexChanged += new System.EventHandler(this.comboBoxDatePicker_SelectedIndexChanged);
+            // 
+            // comboBoxStartPicker
+            // 
+            this.comboBoxStartPicker.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.comboBoxStartPicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxStartPicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxStartPicker.FormattingEnabled = true;
+            this.comboBoxStartPicker.Items.AddRange(new object[] {
+            "На місяць",
+            "На півмісяця"});
+            this.comboBoxStartPicker.Location = new System.Drawing.Point(261, 3);
+            this.comboBoxStartPicker.Name = "comboBoxStartPicker";
+            this.comboBoxStartPicker.Size = new System.Drawing.Size(252, 28);
+            this.comboBoxStartPicker.TabIndex = 1;
+            this.comboBoxStartPicker.SelectedIndexChanged += new System.EventHandler(this.comboBoxStartPicker_SelectedIndexChanged);
+            // 
+            // comboBoxValuePicker
+            // 
+            this.comboBoxValuePicker.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.comboBoxValuePicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxValuePicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxValuePicker.FormattingEnabled = true;
+            this.comboBoxValuePicker.Items.AddRange(new object[] {
+            "Замовлені тарифи",
+            "Замовлені поїздки"});
+            this.comboBoxValuePicker.Location = new System.Drawing.Point(519, 3);
+            this.comboBoxValuePicker.Name = "comboBoxValuePicker";
+            this.comboBoxValuePicker.Size = new System.Drawing.Size(253, 28);
+            this.comboBoxValuePicker.TabIndex = 2;
+            this.comboBoxValuePicker.SelectedIndexChanged += new System.EventHandler(this.comboBoxValuePicker_SelectedIndexChanged);
+            // 
+            // panelAdministrativeSide
+            // 
+            this.panelAdministrativeSide.BackColor = System.Drawing.Color.DimGray;
+            this.panelAdministrativeSide.Controls.Add(this.panel1);
+            this.panelAdministrativeSide.Controls.Add(this.buttonAdministrativeGeneral);
+            this.panelAdministrativeSide.Controls.Add(this.buttonAdminitrativeManyTrans);
+            this.panelAdministrativeSide.Controls.Add(this.buttonAdministrativeOneTrans);
+            this.panelAdministrativeSide.Controls.Add(this.buttonAdministrativeAll);
+            this.panelAdministrativeSide.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelAdministrativeSide.Location = new System.Drawing.Point(0, 0);
+            this.panelAdministrativeSide.Name = "panelAdministrativeSide";
+            this.panelAdministrativeSide.Size = new System.Drawing.Size(250, 599);
+            this.panelAdministrativeSide.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button7);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(10);
+            this.panel1.Size = new System.Drawing.Size(250, 100);
+            this.panel1.TabIndex = 5;
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.Maroon;
+            this.button7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button7.FlatAppearance.BorderSize = 0;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button7.Location = new System.Drawing.Point(10, 10);
+            this.button7.Margin = new System.Windows.Forms.Padding(30);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(230, 80);
+            this.button7.TabIndex = 5;
+            this.button7.Text = "Вийти";
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // buttonAdministrativeGeneral
+            // 
+            this.buttonAdministrativeGeneral.BackColor = System.Drawing.Color.Yellow;
+            this.buttonAdministrativeGeneral.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.buttonAdministrativeGeneral.FlatAppearance.BorderSize = 0;
+            this.buttonAdministrativeGeneral.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.buttonAdministrativeGeneral.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.buttonAdministrativeGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAdministrativeGeneral.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonAdministrativeGeneral.Location = new System.Drawing.Point(0, 199);
+            this.buttonAdministrativeGeneral.Name = "buttonAdministrativeGeneral";
+            this.buttonAdministrativeGeneral.Size = new System.Drawing.Size(250, 100);
+            this.buttonAdministrativeGeneral.TabIndex = 4;
+            this.buttonAdministrativeGeneral.Text = "Загальні відомості";
+            this.buttonAdministrativeGeneral.UseVisualStyleBackColor = false;
+            this.buttonAdministrativeGeneral.Click += new System.EventHandler(this.buttonAdministrativeGeneral_Click);
+            // 
+            // buttonAdminitrativeManyTrans
+            // 
+            this.buttonAdminitrativeManyTrans.BackColor = System.Drawing.Color.DimGray;
+            this.buttonAdminitrativeManyTrans.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.buttonAdminitrativeManyTrans.FlatAppearance.BorderSize = 0;
+            this.buttonAdminitrativeManyTrans.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.buttonAdminitrativeManyTrans.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.buttonAdminitrativeManyTrans.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAdminitrativeManyTrans.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonAdminitrativeManyTrans.Location = new System.Drawing.Point(0, 299);
+            this.buttonAdminitrativeManyTrans.Name = "buttonAdminitrativeManyTrans";
+            this.buttonAdminitrativeManyTrans.Size = new System.Drawing.Size(250, 100);
+            this.buttonAdminitrativeManyTrans.TabIndex = 3;
+            this.buttonAdminitrativeManyTrans.Text = "Відомості по тарифам для усього громадського транспорту";
+            this.buttonAdminitrativeManyTrans.UseVisualStyleBackColor = false;
+            this.buttonAdminitrativeManyTrans.Click += new System.EventHandler(this.buttonAdminitrativeManyTrans_Click);
+            // 
+            // buttonAdministrativeOneTrans
+            // 
+            this.buttonAdministrativeOneTrans.BackColor = System.Drawing.Color.DimGray;
+            this.buttonAdministrativeOneTrans.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.buttonAdministrativeOneTrans.FlatAppearance.BorderSize = 0;
+            this.buttonAdministrativeOneTrans.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Red;
+            this.buttonAdministrativeOneTrans.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.buttonAdministrativeOneTrans.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAdministrativeOneTrans.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonAdministrativeOneTrans.Location = new System.Drawing.Point(0, 399);
+            this.buttonAdministrativeOneTrans.Name = "buttonAdministrativeOneTrans";
+            this.buttonAdministrativeOneTrans.Size = new System.Drawing.Size(250, 100);
+            this.buttonAdministrativeOneTrans.TabIndex = 2;
+            this.buttonAdministrativeOneTrans.Text = "Відомості по тарифам для міської електрички";
+            this.buttonAdministrativeOneTrans.UseVisualStyleBackColor = false;
+            this.buttonAdministrativeOneTrans.Click += new System.EventHandler(this.buttonAdministrativeOneTrans_Click);
+            // 
+            // buttonAdministrativeAll
+            // 
+            this.buttonAdministrativeAll.BackColor = System.Drawing.Color.DimGray;
+            this.buttonAdministrativeAll.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.buttonAdministrativeAll.FlatAppearance.BorderSize = 0;
+            this.buttonAdministrativeAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.buttonAdministrativeAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.buttonAdministrativeAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAdministrativeAll.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonAdministrativeAll.Location = new System.Drawing.Point(0, 499);
+            this.buttonAdministrativeAll.Name = "buttonAdministrativeAll";
+            this.buttonAdministrativeAll.Size = new System.Drawing.Size(250, 100);
+            this.buttonAdministrativeAll.TabIndex = 1;
+            this.buttonAdministrativeAll.Text = "Відомості по усім тарифам";
+            this.buttonAdministrativeAll.UseVisualStyleBackColor = false;
+            this.buttonAdministrativeAll.Click += new System.EventHandler(this.buttonAdministrativeAll_Click);
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.DimGray;
+            this.button6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.Location = new System.Drawing.Point(0, 570);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(250, 29);
+            this.button6.TabIndex = 0;
+            this.button6.Text = "button6";
+            this.button6.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -1213,6 +1434,7 @@ namespace TicketReplenisherApp
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1025, 599);
+            this.Controls.Add(this.panelWindowAdministrativeMain);
             this.Controls.Add(this.panelWindowOrderPrepare);
             this.Controls.Add(this.panelWindow2);
             this.Controls.Add(this.panelWindow1);
@@ -1245,13 +1467,44 @@ namespace TicketReplenisherApp
             this.panelIsByCash.ResumeLayout(false);
             this.panelIsByCard.ResumeLayout(false);
             this.panelWindowOrderPrepareUp.ResumeLayout(false);
+            this.panelWindowAdministrativeMain.ResumeLayout(false);
+            this.panelAdministrativeTariffSetup.ResumeLayout(false);
+            this.tableLayoutPanel8.ResumeLayout(false);
+            this.panelAdministrativeSide.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        //private System.Windows.Forms.DataVisualization.Charting.Chart myChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+        private System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea;
+        private System.Windows.Forms.DataVisualization.Charting.Chart myChart;
+        private System.Windows.Forms.DataVisualization.Charting.Series seriesOfColumns;
+        private System.Windows.Forms.DataVisualization.Charting.Series seriesOfDoughnut;
+        private void InitializeCustom()
+        {
+            chartArea = new System.Windows.Forms.DataVisualization.Charting.ChartArea()
+            {
+                Name = "ChartArea"
+            };
+            myChart = new System.Windows.Forms.DataVisualization.Charting.Chart()
+            {
+                Dock = System.Windows.Forms.DockStyle.Fill,
+                Name = "myChart",
+                Text = "chart1",
+                BackColor = System.Drawing.Color.LightSeaGreen
+            };
+            seriesOfColumns = new System.Windows.Forms.DataVisualization.Charting.Series("Графік функції")
+            {
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column,
+                ChartArea = "ChartArea",
+            };
+            seriesOfDoughnut = new System.Windows.Forms.DataVisualization.Charting.Series("Графік функції")
+            {
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut,
+                ChartArea = "ChartArea"
+            };
+        }
         public System.Windows.Forms.Panel panelStartMenu;
         public System.Windows.Forms.TextBox textBoxStartMenu;
         public System.Windows.Forms.Label labelStartMenu;
@@ -1323,7 +1576,22 @@ namespace TicketReplenisherApp
         public System.Windows.Forms.Button buttonManyTransportTariff6;
         public System.Windows.Forms.Button buttonManyTransportTariff10;
         public System.Windows.Forms.Panel nt;
-        public System.Windows.Forms.Button buttonAdministrative;
+        private System.Windows.Forms.Panel panelWindowAdministrativeMain;
+        private System.Windows.Forms.Panel panelAdministrativeTariffSetup;
+        private System.Windows.Forms.Panel panelAdministrativeSide;
+        private System.Windows.Forms.Button buttonAdministrativeGeneral;
+        private System.Windows.Forms.Button buttonAdminitrativeManyTrans;
+        private System.Windows.Forms.Button buttonAdministrativeOneTrans;
+        private System.Windows.Forms.Button buttonAdministrativeAll;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
+        private System.Windows.Forms.ComboBox comboBoxDatePicker;
+        private System.Windows.Forms.ComboBox comboBoxStartPicker;
+        private System.Windows.Forms.ComboBox comboBoxValuePicker;
+        private System.Windows.Forms.Panel panelGraphHolder;
+        private System.Windows.Forms.Panel panelAdministrativeGeneral;
     }
 }
 

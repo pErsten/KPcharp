@@ -76,7 +76,7 @@ namespace TicketReplenisherApp
             set => tariffGroup = value;
         }
 
-        public TariffManyTransports() : this(default(int), default(TariffGroups)) { }
+        public TariffManyTransports() { }
         public TariffManyTransports(int QuantityOfUsages, TariffGroups TariffGroup)
         {
             this.QuantityOfUsages = QuantityOfUsages;

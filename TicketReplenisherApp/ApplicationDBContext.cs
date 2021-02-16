@@ -18,8 +18,8 @@ namespace TicketReplenisherApp
         public ApplicationDBContext() { }
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

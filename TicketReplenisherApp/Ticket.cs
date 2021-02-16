@@ -70,6 +70,7 @@ namespace TicketReplenisherApp
             set => tariff = value;
         }
         private DateTime expireDate;
+        [Column(TypeName = "date")]
         public DateTime ExpireDate
         {
             get => expireDate;

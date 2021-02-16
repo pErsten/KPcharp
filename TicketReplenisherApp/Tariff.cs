@@ -30,12 +30,14 @@ namespace TicketReplenisherApp
             get => quantityOfUses;
         }
         private DateTime startDate;
+        [Column(TypeName = "date")]
         public DateTime StartDate
         {
             get => startDate;
             set => startDate = value;
         }
         private DateTime endDate;
+        [Column(TypeName = "date")]
         public DateTime EndDate
         {
             get => endDate;
@@ -55,7 +57,7 @@ namespace TicketReplenisherApp
             get => ticket;
         }
 
-        public Tariff() : this(default(TariffManyTransports)) { Console.WriteLine("empty Tariff created"); }
+        public Tariff() { }//: this(default(TariffManyTransports)) { Console.WriteLine("empty Tariff created"); }
         //TariffOneTransport
         public Tariff(int QuantityOfUses)
         {

@@ -35,6 +35,7 @@ namespace TicketReplenisherApp
         {
             return QuantityOfUsages switch
             {
+                0 => 0f,
                 46 => 290f,
                 62 => 390f,
                 92 => 575f,
