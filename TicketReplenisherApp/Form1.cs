@@ -106,14 +106,14 @@ namespace TicketReplenisherApp
             listBox3.DataSource = DB.TariffManyTransportsTable.Local.ToBindingList();/**/
         }
 
-        static string getConfigurationBuilder()
+        static string GetConfigurationBuilder()
         {
             ConfigurationBuilder builder = new ConfigurationBuilder() { };
             builder.SetBasePath(Directory.GetCurrentDirectory());
             builder.AddJsonFile("appsettings.json");
             return builder.Build().GetConnectionString("DefaultConnection");
         }
-        public static ApplicationDBContext DB = new ApplicationDBContext(new DbContextOptionsBuilder<ApplicationDBContext>().UseSqlServer(getConfigurationBuilder()).Options);
+        public static ApplicationDBContext DB = new ApplicationDBContext(new DbContextOptionsBuilder<ApplicationDBContext>().UseSqlServer(GetConfigurationBuilder()).Options);
 
         //
         // Window 1
@@ -130,9 +130,9 @@ namespace TicketReplenisherApp
         private void buttonStartMenuContinue_Click(object sender, EventArgs e)
         {
             long ticketCode = 0;
-            if(textBoxStartMenu.Text == "kukamber")
+            if(textBoxStartMenu.Text == ConstValues.PASSWORD_FOR_ADMINISTRATOR)
             {
-                openAdministrativeWindow();
+                OpenAdministrativeWindow();
             }
             long.TryParse(textBoxStartMenu.Text, out ticketCode);
             Ticket ticket = DB.TicketTable.Where(x => x.TicketBarcode == ticketCode)
@@ -238,8 +238,9 @@ namespace TicketReplenisherApp
         {
             if (tariffOneTransportUses == 0)
                 return;
-            tariff = new Tariff(tariffOneTransportUses);
+            tariff = new Tariff(tariffOneTransportUses, this.ticket);
             panelWindow2.Visible = false;
+
             PanelWindowOrderPrepareOpen();
         }
 
@@ -272,75 +273,25 @@ namespace TicketReplenisherApp
             panelWindow2_2Central.Visible = false;
         }
 
-        private void buttonManyTransportTariff1_Click(object sender, EventArgs e)
+        private void ButtonManyTransortTariffClick(int QuantityOfUses, DateTime StartDate)
         {
-            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 46).FirstOrDefault());
+            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory
+                                                                && x.TariffGroup.StartDate == StartDate 
+                                                                && x.QuantityOfUsages == QuantityOfUses)
+                                                            .FirstOrDefault(), this.ticket);
             panelWindow2.Visible = false;
             PanelWindowOrderPrepareOpen();
         }
-
-        private void buttonManyTransportTariff2_Click(object sender, EventArgs e)
-        {
-            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 62).FirstOrDefault());
-            panelWindow2.Visible = false;
-            PanelWindowOrderPrepareOpen();
-        }
-
-        private void buttonManyTransportTariff3_Click(object sender, EventArgs e)
-        {
-            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 92).FirstOrDefault());
-            panelWindow2.Visible = false;
-            PanelWindowOrderPrepareOpen();
-        }
-
-        private void buttonManyTransportTariff4_Click(object sender, EventArgs e)
-        {
-            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 124).FirstOrDefault());
-            panelWindow2.Visible = false;
-            PanelWindowOrderPrepareOpen();
-        }
-
-        private void buttonManyTransportTariff5_Click(object sender, EventArgs e)
-        {
-            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == int.MaxValue).FirstOrDefault());
-            panelWindow2.Visible = false;
-            PanelWindowOrderPrepareOpen();
-        }
-
-        private void buttonManyTransportTariff6_Click(object sender, EventArgs e)
-        {
-            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == 46).FirstOrDefault());
-            panelWindow2.Visible = false;
-            PanelWindowOrderPrepareOpen();
-        }
-
-        private void buttonManyTransportTariff7_Click(object sender, EventArgs e)
-        {
-            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == 62).FirstOrDefault());
-            panelWindow2.Visible = false;
-            PanelWindowOrderPrepareOpen();
-        }
-
-        private void buttonManyTransportTariff8_Click(object sender, EventArgs e)
-        {
-            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == 92).FirstOrDefault());
-            panelWindow2.Visible = false;
-            PanelWindowOrderPrepareOpen();
-        }
-
-        private void buttonManyTransportTariff9_Click(object sender, EventArgs e)
-        {
-            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == 124).FirstOrDefault());
-            panelWindow2.Visible = false;
-            PanelWindowOrderPrepareOpen();
-        }
-
-        private void buttonManyTransportTariff10_Click(object sender, EventArgs e)
-        {
-            tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == int.MaxValue).FirstOrDefault());
-            panelWindow2.Visible = false;
-            PanelWindowOrderPrepareOpen();
-        }
+        private void buttonManyTransportTariff1_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(46          , StartSecondHalfMonthDate);
+        private void buttonManyTransportTariff2_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(62          , StartSecondHalfMonthDate);
+        private void buttonManyTransportTariff3_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(92          , StartSecondHalfMonthDate);
+        private void buttonManyTransportTariff4_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(124         , StartSecondHalfMonthDate);
+        private void buttonManyTransportTariff5_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(int.MaxValue, StartSecondHalfMonthDate);
+        private void buttonManyTransportTariff6_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(46          , StartMonthDate);
+        private void buttonManyTransportTariff7_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(62          , StartMonthDate);
+        private void buttonManyTransportTariff8_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(92          , StartMonthDate);
+        private void buttonManyTransportTariff9_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(124         , StartMonthDate);
+        private void buttonManyTransportTariff10_Click(object sender, EventArgs e) => ButtonManyTransortTariffClick(int.MaxValue, StartMonthDate);
 
         //
         // Window 2_3
@@ -360,10 +311,16 @@ namespace TicketReplenisherApp
         {
             panelWindowOrderPrepare.Visible = true;
             panelWindowOrderPrepare.BringToFront();
-            (decimal totalPrice, int MonthsStreak, decimal MonthsStreakDecrease) = tariff.CalculatePriceAndMonthsStreak(false, ticket);
+
+            decimal totalPrice = tariff.CalculatePrice(false);
+
+            labelMonthsOrderedHeader.Text = "";
+            labelMonthsOrdered.Text = "";
             if (tariff.TariffType is TariffManyTransports)
             {
-                labelMonthsOrderedHeader.Text = $"Знижка за {MonthsStreak - 1} щомісячних замовлених тарифів: ";
+                int MonthsStreak = tariff.CalculateMonthsStreak();
+                decimal MonthsStreakDecrease = tariff.CalculateMonthsStreakDecrease();
+                labelMonthsOrderedHeader.Text = $"Знижка за {MonthsStreak} щомісячних замовлених тарифів: ";
                 labelMonthsOrdered.Text = $"{MonthsStreakDecrease:##0.##%}";
             }
             labelTotalPrice.Text = $"{totalPrice:C2}";
@@ -375,7 +332,7 @@ namespace TicketReplenisherApp
             panelIsByCard.BackColor = Color.Sienna;
             labelIsByCard.Visible = false;
             labelIsByCardHeader.Visible = false;
-            (decimal totalPrice, _, _) = tariff.CalculatePriceAndMonthsStreak(false, ticket);
+            decimal totalPrice = tariff.CalculatePrice(false);
             labelTotalPrice.Text = $"{totalPrice:C2}";
         }
 
@@ -385,7 +342,7 @@ namespace TicketReplenisherApp
             panelIsByCard.BackColor = Color.Yellow;
             labelIsByCard.Visible = true;
             labelIsByCardHeader.Visible = true;
-            (decimal totalPrice, _, _) = tariff.CalculatePriceAndMonthsStreak(true, ticket);
+            decimal totalPrice = tariff.CalculatePrice(true);
             labelTotalPrice.Text = $"{totalPrice:C2}";
         }
 
@@ -399,7 +356,7 @@ namespace TicketReplenisherApp
         private void buttonPayOrder_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Тариф замовлено");
-            tariff.SetTariffToTicket(ticket, labelIsByCard.Visible);
+            tariff.SetTariffToTicket(labelIsByCard.Visible);
             var Order =  DB.OrderedTariffTable.Where(x => x.Tariff.Id == tariff.TariffType.Id && x.DateOfOrder == StartMonthDate).Single();
             Order.QuantityOfTariffs++;
             Order.QuantityOfUses += tariff.QuantityOfUses;
@@ -411,6 +368,7 @@ namespace TicketReplenisherApp
         //
         // Window Administrative
         //
+
         private bool IsHalfMonth;
         private bool IsQuantityOfUses;
         private DateTime SelectedMonth;
@@ -465,40 +423,43 @@ namespace TicketReplenisherApp
             Random rand = new Random();
 
             seriesOfDoughnut.Points.Clear();
-            seriesOfDoughnut.Points.AddXY("Тарифи на міську електричку", DB.OrderedTariffTable.Where(x => x.Tariff is TariffOneTransport)
-                                                                         .Sum(x => IsQuantityOfUses ? x.QuantityOfUses : x.QuantityOfTariffs));
-            seriesOfDoughnut.Points.AddXY("Місячні тарифи на громадський транспорт", DB.OrderedTariffTable.Where(x => x.Tariff is TariffManyTransports
-                                                                            && (x.Tariff as TariffManyTransports).TariffGroup.StartDate == StartMonthDate)
-                                   .Sum(x => IsQuantityOfUses ? x.QuantityOfUses : x.QuantityOfTariffs));
-            seriesOfDoughnut.Points.AddXY("Півмісячні тарифи на громадський транспорт", DB.OrderedTariffTable.Where(x => x.Tariff is TariffManyTransports
-                                                                            && (x.Tariff as TariffManyTransports).TariffGroup.StartDate == StartSecondHalfMonthDate)
-                                   .Sum(x => IsQuantityOfUses ? x.QuantityOfUses : x.QuantityOfTariffs));
-
-            //seriesOfDoughnut.Points.ToList().ForEach(x => x.Color = Color.FromArgb(rand.Next(255), rand.Next(255), rand.Next(255)));
+            seriesOfDoughnut.Points.AddXY("Тарифи на міську електричку", 
+                                          DB.OrderedTariffTable.Where(x => x.Tariff is TariffOneTransport)
+                                                               .Sum(x => IsQuantityOfUses ? x.QuantityOfUses : x.QuantityOfTariffs));
+            seriesOfDoughnut.Points.AddXY("Місячні тарифи на громадський транспорт", 
+                                          DB.OrderedTariffTable.Where(x => x.Tariff is TariffManyTransports
+                                                                       && (x.Tariff as TariffManyTransports).TariffGroup.StartDate == StartMonthDate)
+                                                               .Sum(x => IsQuantityOfUses ? x.QuantityOfUses : x.QuantityOfTariffs));
+            seriesOfDoughnut.Points.AddXY("Півмісячні тарифи на громадський транспорт", 
+                                          DB.OrderedTariffTable.Where(x => x.Tariff is TariffManyTransports
+                                                                  && (x.Tariff as TariffManyTransports).TariffGroup.StartDate == StartSecondHalfMonthDate)
+                                                               .Sum(x => IsQuantityOfUses ? x.QuantityOfUses : x.QuantityOfTariffs));
         }
-        private void openAdministrativeWindow()
+        private void OpenAdministrativeWindow()
         {
             comboBoxDatePicker.Items.Clear();
             comboBoxDatePicker.Items.AddRange(DB.OrderedTariffTable.OrderBy(x => x.DateOfOrder).Select(x => $"{x.DateOfOrder:MM/yyyy}").ToArray().Distinct().ToArray());
             IsHalfMonth = false;
             IsQuantityOfUses = false;
             SelectedMonth = StartMonthDate;
-            //myChart.Series.Add(seriesOfColumns);
-            //buttonAdministrativeGeneral_Click(null, null);            
             panelWindowAdministrativeMain.Visible = true;
             panelWindow1.Visible = false;
         }
+        
 
+        private void ButtonColorChange(Color GeneralButton, Color ManyTransButton, Color OneTransButton, Color AllButton)
+        {
+            buttonAdministrativeGeneral.BackColor = GeneralButton;
+            buttonAdminitrativeManyTrans.BackColor = ManyTransButton;
+            buttonAdministrativeOneTrans.BackColor = OneTransButton;
+            buttonAdministrativeAll.BackColor = AllButton;
+        }
         private void buttonAdministrativeGeneral_Click(object sender, EventArgs e)
         {
             panelAdministrativeTariffSetup.Visible = false;
             panelAdministrativeGeneral.Visible = true;
-            buttonAdministrativeGeneral.BackColor = Color.Yellow;
-            buttonAdminitrativeManyTrans.BackColor = Color.DimGray;
-            buttonAdministrativeOneTrans.BackColor = Color.DimGray;
-            buttonAdministrativeAll.BackColor = Color.DimGray;
+            ButtonColorChange(Color.Yellow, Color.DimGray, Color.DimGray, Color.DimGray);
         }
-
         private void buttonAdminitrativeManyTrans_Click(object sender, EventArgs e)
         {
             panelAdministrativeTariffSetup.Visible = true;
@@ -512,12 +473,8 @@ namespace TicketReplenisherApp
             comboBoxStartPicker.Enabled = true;
             chartArea.BackColor = Color.PowderBlue;
             ManyTransportGraphFill();
-            buttonAdministrativeGeneral.BackColor = Color.DimGray;
-            buttonAdminitrativeManyTrans.BackColor = Color.Lime;
-            buttonAdministrativeOneTrans.BackColor = Color.DimGray;
-            buttonAdministrativeAll.BackColor = Color.DimGray;
+            ButtonColorChange(Color.DimGray, Color.Lime, Color.DimGray, Color.DimGray);
         }
-
         private void buttonAdministrativeOneTrans_Click(object sender, EventArgs e)
         {
             panelAdministrativeTariffSetup.Visible = true;
@@ -530,12 +487,8 @@ namespace TicketReplenisherApp
             comboBoxStartPicker.Enabled = false;
             chartArea.BackColor = Color.PowderBlue;
             OneTransportGraphFill();
-            buttonAdministrativeGeneral.BackColor = Color.DimGray;
-            buttonAdminitrativeManyTrans.BackColor = Color.DimGray;
-            buttonAdministrativeOneTrans.BackColor = Color.Red;
-            buttonAdministrativeAll.BackColor = Color.DimGray;
+            ButtonColorChange(Color.DimGray, Color.DimGray, Color.Red, Color.DimGray);
         }
-
         private void buttonAdministrativeAll_Click(object sender, EventArgs e)
         {
             panelAdministrativeTariffSetup.Visible = true;
@@ -548,30 +501,32 @@ namespace TicketReplenisherApp
             myChart.Series.Add(seriesOfDoughnut);
             chartArea.BackColor = Color.LightSeaGreen;
             AllTransportGraphFill();
-            buttonAdministrativeGeneral.BackColor = Color.DimGray;
-            buttonAdminitrativeManyTrans.BackColor = Color.DimGray;
-            buttonAdministrativeOneTrans.BackColor = Color.DimGray;
-            buttonAdministrativeAll.BackColor = Color.FromArgb(255, 128, 0);
+            ButtonColorChange(Color.DimGray, Color.DimGray, Color.DimGray, Color.FromArgb(255, 128, 0));
         }
+
 
         private void button7_Click(object sender, EventArgs e)
         {
-            //myChart.Series.Clear();
+            buttonAdministrativeGeneral_Click(sender, e);
             panelWindowAdministrativeMain.Visible = false;
             panelWindow1.Visible = true;
-            buttonAdministrativeGeneral_Click(sender, e);
         }
 
-        private void comboBoxDatePicker_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void GraphFill()
         {
-            string[] date = (sender as ComboBox).SelectedItem.ToString().Split('.');
-            SelectedMonth = new DateTime(Convert.ToInt32(date[1]), Convert.ToInt32(date[0]), 1);
             switch (currentDiagram)
             {
                 case CurrentDiagram.AllTrans: AllTransportGraphFill(); break;
                 case CurrentDiagram.ManyTrans: ManyTransportGraphFill(); break;
                 case CurrentDiagram.OneTrans: OneTransportGraphFill();break;
             }
+        }
+        private void comboBoxDatePicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] date = (sender as ComboBox).SelectedItem.ToString().Split('.');
+            SelectedMonth = new DateTime(Convert.ToInt32(date[1]), Convert.ToInt32(date[0]), 1);
+            GraphFill();
         }
 
         private void comboBoxStartPicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -581,12 +536,7 @@ namespace TicketReplenisherApp
                 case "На місяць": IsHalfMonth = false; break;
                 case "На півмісяця": IsHalfMonth = true; break;
             }
-            switch (currentDiagram)
-            {
-                case CurrentDiagram.AllTrans: AllTransportGraphFill(); break;
-                case CurrentDiagram.ManyTrans: ManyTransportGraphFill(); break;
-                case CurrentDiagram.OneTrans: OneTransportGraphFill(); break;
-            }
+            GraphFill();
         }
 
         private void comboBoxValuePicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -596,12 +546,7 @@ namespace TicketReplenisherApp
                 case "Замовлені тарифи": IsQuantityOfUses = false; break;
                 case "Замовлені поїздки": IsQuantityOfUses = true; break;
             }
-            switch (currentDiagram)
-            {
-                case CurrentDiagram.AllTrans: AllTransportGraphFill(); break;
-                case CurrentDiagram.ManyTrans: ManyTransportGraphFill(); break;
-                case CurrentDiagram.OneTrans: OneTransportGraphFill(); break;
-            }
+            GraphFill();
         }
     }
 }

@@ -45,9 +45,17 @@ namespace TicketReplenisherApp
             };
         }
 
+        /// <summary>
+        /// A password for entering Administrator Window
+        /// </summary>
+        public const string PASSWORD_FOR_ADMINISTRATOR = "kukumber";
 
 
 
+        /// <summary>
+        /// An enumerator for calculating the price for ticket (and for eliminating the ability to
+        /// buy a Tariff, if there isn't such Tariff for corresponding Facility Category)
+        /// </summary>
         public enum FacilityCategories : byte
         {
             Full,

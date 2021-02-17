@@ -93,5 +93,24 @@ namespace TicketReplenisherApp
         {
             return $"TariffManyTransports: id - {Id, 2}, tariff price - {PriceForTariff:C2}, quantity of usages - {QuantityOfUsages}, tariff group id - {TariffGroup.Id}";
         }
+
+        public override decimal TariffGetPrice(Tariff tariff)
+        {
+            decimal Price = PriceForTariff;//Formula 2.2
+            int MonthsStreak = tariff.Ticket.MonthsStreak;
+            decimal MonthsStreakDecrease = GetMonthStreakDecrease(MonthsStreak);
+            return Price * MonthsStreakDecrease;
+        }
+        public decimal GetMonthStreakDecrease(int MonthsStreak)
+        {
+            decimal x = 1 - Convert.ToDecimal(MonthsStreak / ConstValues.NUMBER_OF_MONTHS_FOR_SUM_DECREASE) / 100;
+            return x > ConstValues.MIN_COEFFICIENT_OF_TARIFF ? x : ConstValues.MIN_COEFFICIENT_OF_TARIFF;//Formula 2.3
+        }
+
+        public override void SetTariffToTicketValues(Tariff tariff)
+        {
+            tariff.Ticket.MonthsStreak++;// = tariff.CalculateMonthsStreak() + 1;
+            tariff.Ticket.ExpireDate = tariff.EndDate;
+        }
     }
 }

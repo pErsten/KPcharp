@@ -57,79 +57,47 @@ namespace TicketReplenisherApp
             get => ticket;
         }
 
-        public Tariff() { }//: this(default(TariffManyTransports)) { Console.WriteLine("empty Tariff created"); }
+        //constructors
+        public Tariff() { }
         //TariffOneTransport
-        public Tariff(int QuantityOfUses)
+        public Tariff(int QuantityOfUses, Ticket Ticket)
         {
             this.QuantityOfUses = QuantityOfUses;
             this.TariffType = TariffOneTransport.GetTariffOneTransport(QuantityOfUses);
             this.StartDate = DateTime.MinValue;
             this.EndDate = DateTime.MaxValue;
+            this.Ticket = Ticket;
         }
         //TariffManyTransports
-        public Tariff(TariffManyTransports TariffType)
+        public Tariff(TariffManyTransports TariffType, Ticket Ticket)
         {
             this.QuantityOfUses = TariffType.QuantityOfUsages;
             this.TariffType = TariffType;
-            (this.StartDate, this.EndDate) = TariffType.GetTariffDates();
+            (StartDate, EndDate) = TariffType.GetTariffDates();
+            this.Ticket = Ticket;
         }
 
-        public void SetTariffToTicket(Ticket Ticket, bool isPayedByCard)
+        public void SetTariffToTicket(bool isPayedByCard)
         {
-            /*if(this.TariffType is TariffManyTransports)
-            {
-                if (Ticket.Tariff.EndDate.Year == this.EndDate.Year && Ticket.Tariff.EndDate.Month == this.EndDate.Month)
-                    Ticket.MonthsStreak++;
-                else
-                    Ticket.MonthsStreak = 0;
-            }*/
-            this.Ticket = Ticket;
-            if(this.TariffType is TariffManyTransports)
-            {
-                this.Ticket.ExpireDate = this.endDate;
-                (_, this.Ticket.MonthsStreak, _) = CalculatePriceAndMonthsStreak(isPayedByCard, this.Ticket);
-            }
-            else
-            {
-                if (this.Ticket.Tariff is not null && this.Ticket.Tariff.TariffType is TariffOneTransport)
-                    this.QuantityOfUses += this.Ticket.Tariff.QuantityOfUses;
-            }
-            this.Ticket.Tariff = this;
+            TariffType.SetTariffToTicketValues(this);
+            Ticket.Tariff = this;
         }
         
-        public (decimal, int, decimal) CalculatePriceAndMonthsStreak(bool isPayedByCard, Ticket ticket)
+        //facade methods
+        public decimal CalculateMonthsStreakDecrease()
         {
-            int MonthsStreak = ticket.MonthsStreak;
-            decimal Price;
-            decimal MonthsStreakDecrease = 1M;
-            if (this.TariffType is TariffOneTransport) 
-                Price = this.QuantityOfUses * (ConstValues.ONE_USAGE_COST - ConstValues.COEFFICIENT_QUANTIFICATOR * (this.TariffType as TariffOneTransport).CoefficientNumber);//Formula 2.1
-            else
-            {
-                Price = (this.TariffType as TariffManyTransports).PriceForTariff;//Formula 2.2
-
-                if (ticket.ExpireDate == this.EndDate)
-                    MonthsStreak--;
-                else if (ticket.ExpireDate.Month == 12 ?
-                    (ticket.ExpireDate.Year != this.EndDate.Year - 1 || this.EndDate.Month != 1)
-                    : (ticket.ExpireDate.Year != this.EndDate.Year || ticket.ExpireDate.Month != this.EndDate.Month - 1))
-                    MonthsStreak = 0;
-
-                decimal x = 1 - Convert.ToDecimal(MonthsStreak/ConstValues.NUMBER_OF_MONTHS_FOR_SUM_DECREASE)/100;
-                MonthsStreak++;
-                MonthsStreakDecrease = x > ConstValues.MIN_COEFFICIENT_OF_TARIFF ? x : ConstValues.MIN_COEFFICIENT_OF_TARIFF;//Formula 2.3
-                Price *= MonthsStreakDecrease;
-            }
+            return (TariffType as TariffManyTransports)?.GetMonthStreakDecrease(Ticket.MonthsStreak) ?? 1;
+        }
+        public int CalculateMonthsStreak()
+        {
+            return Ticket.MonthsStreak;
+        }
+        public decimal CalculatePrice(bool isPayedByCard)
+        {
+            decimal Price = TariffType.TariffGetPrice(this);
             if (isPayedByCard)
                 Price *= 0.995M;//Formula 2.4
-            return (Price, MonthsStreak, 1 - MonthsStreakDecrease);
+            return Price;
         }
-        /*public Tariff(ITariffType TariffType, int QuantityOfUses, Ticket Ticket)
-        {
-            this.QuantityOfUses = QuantityOfUses;
-            this.TariffType = TariffType;
-            this.Ticket = Ticket;
-            this.Ticket.Tariff = this;//this creates 1:1 relation between [Ticket] and [Tariff]
-        }*/
     }
 }

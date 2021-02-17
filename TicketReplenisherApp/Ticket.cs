@@ -91,26 +91,28 @@ namespace TicketReplenisherApp
         private int monthsStreak;
         public int MonthsStreak
         {
-            get => monthsStreak;
+            get
+            {
+                //if it's this month
+                if (ExpireDate == new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)))
+                    return monthsStreak - 1;
+
+                //if it's not previous month
+                if (ExpireDate.Month == 12 ?
+                    (ExpireDate.Year != DateTime.Now.Year - 1 || DateTime.Now.Month != 1)
+                    : (ExpireDate.Year != DateTime.Now.Year || ExpireDate.Month != DateTime.Now.Month - 1))
+                    return 0;
+                return monthsStreak;
+            }
             set => monthsStreak = value;
         }
 
         public Ticket() : this(default(long)) { }
-        /*public Ticket(long TicketBarcode, Tariff Tariff) : this(TicketBarcode)
-        {
-            this.Tariff = Tariff;
-            this.Tariff.Ticket = this;//creates 1:1 relation between [Ticket] and [Tariff]
-        }*/
         public Ticket(long TicketBarcode)
         {
             this.ExpireDate = DateTime.MinValue;
             this.TicketBarcode = TicketBarcode;
             this.MonthsStreak = 0;
         }
-
-        /*public void TicketSetNewTariff(Tariff Tariff)
-        {
-            this.Tariff = Tariff;
-        }*/
     }
 }

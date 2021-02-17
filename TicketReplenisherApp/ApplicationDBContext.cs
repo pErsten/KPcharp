@@ -22,16 +22,10 @@ namespace TicketReplenisherApp
             //Database.EnsureCreated();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TicketReplenisherDB;Trusted_Connection=True;");
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<OrderedTariffs>().HasOne(ot => ot.Tariff).WithMany().HasForeignKey(ot => ot.TariffId).OnDelete(DeleteBehavior.Cascade);// HasKey(ot => new { ot.TariffId, ot.DateOfOrder });
             modelBuilder.Entity<OrderedTariffs>().HasKey(ot => new { ot.TariffId, ot.DateOfOrder });
-            //modelBuilder.Entity<OrderedTariffs>().HasKey(ot => ot.DateOfOrder);
 
             modelBuilder.Entity<OrderedTariffs>().HasIndex(ot => new { ot.DateOfOrder, ot.TariffId}).IsUnique().HasDatabaseName("IX_ReversedClusteredIndex");
         }

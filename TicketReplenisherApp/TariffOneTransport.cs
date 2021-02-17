@@ -40,5 +40,15 @@ namespace TicketReplenisherApp
                            .Where(x => x.MinUsagesQuantityForCoefficient <= QuantityOfUsages)
                            .FirstOrDefault();
         }
+
+        public override decimal TariffGetPrice(Tariff tariff)
+        {
+            return tariff.QuantityOfUses * (ConstValues.ONE_USAGE_COST - ConstValues.COEFFICIENT_QUANTIFICATOR * this.CoefficientNumber);//Formula 2.1
+        }
+        public override void SetTariffToTicketValues(Tariff tariff)
+        {
+            if (tariff.Ticket.Tariff.TariffType is TariffOneTransport)
+                tariff.QuantityOfUses += tariff.Ticket.Tariff.QuantityOfUses;
+        }
     }
 }
