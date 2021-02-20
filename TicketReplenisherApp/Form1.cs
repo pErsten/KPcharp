@@ -25,7 +25,7 @@ namespace TicketReplenisherApp
         {
             InitializeComponent();
             ThisForm = this;
-            //--------------
+            //------------
             /*Thread thread = new Thread(async () =>
             {
                 Thread.Sleep(10000);
@@ -143,7 +143,7 @@ namespace TicketReplenisherApp
             if (ticket != null)
             {
                 panelWindow1.Visible = false;
-                OpenWindow2(ticket);
+                OpenWindow2Async(ticket);
             }
             else
             {
@@ -159,39 +159,52 @@ namespace TicketReplenisherApp
         int tariffOneTransportUses { get; set; }
         Tariff tariff { get; set; }
 
-        private void OpenWindow2(Ticket ticket)
+        private async void OpenWindow2Async(Ticket ticket)
         {
             this.ticket = ticket;
             panelWindow2.Visible = true;
             labelWindow2UpName.Text = $"{ticket.Account.Surname} {ticket.Account.Name}";
-            if (ticket.Tariff != null) labelWindow2UpTariff.Text = $"Баланс: {ticket.Tariff.QuantityOfUses}, дійсний до: {ticket.Tariff.EndDate:dd/MM/yyyy}";
+            if (ticket.Tariff != null && ticket.Tariff.Ticket.Id == ticket.Id)
+                labelWindow2UpTariff.Text = $"Баланс: {ticket.Tariff.QuantityOfUses}, дійсний до: {ticket.Tariff.EndDate:dd/MM/yyyy}";
+            else
+                labelWindow2UpTariff.Text = "Немає";
             
-            listBoxTariffsManyTransports.Items.Add("Поїздки     Дійсний від Дійсний до  Ціна тарифу");
-            listBoxTariffsManyTransports.Items.AddRange(DB.TariffManyTransportsTable
-                                                          .Where(x => x.TariffGroup.GroupCategory == ticket.Account.FacilityCategory)
-                                                          .OrderBy(x => x.TariffGroup.StartDate)
-                                                          .ThenBy(x => x.QuantityOfUsages)
-                                                          .Select(x => $"{(x.QuantityOfUsages == int.MaxValue ? "Безлімітний" : x.QuantityOfUsages),-12}" +
-                                                                       $"{x.TariffGroup.StartDate,-12:dd/MM/yyyy}" +
-                                                                       $"{x.TariffGroup.EndDate,-12:dd/MM/yyyy}" +
-                                                                       $"{x.PriceForTariff:C2}").ToArray());
-            listBoxTariffsSingleTransport.Items.Add("Замовлені поїздки   Ціна за одну поїздку");
-            for (int i = 0; i < DB.TariffOneTransportTable.Count(); i++)
+            //for Window2_3
+            Task Window2_3Task = Task.Run(() => this.Invoke(new Action(() =>
             {
-                listBoxTariffsSingleTransport.Items.Add($"{DB.TariffOneTransportTable.ToList()[i].MinUsagesQuantityForCoefficient,2}" +
-                                                        $"{(i + 1 < DB.TariffOneTransportTable.Count() ? "-" + (DB.TariffOneTransportTable.ToList()[i + 1].MinUsagesQuantityForCoefficient - 1).ToString() : "+"),-18}" +
-                                                        $"{ConstValues.ONE_USAGE_COST - DB.TariffOneTransportTable.ToList()[i].CoefficientNumber * ConstValues.COEFFICIENT_QUANTIFICATOR:C2}");
-            }
-            buttonManyTransportTariff1.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 46);
-            buttonManyTransportTariff2.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 62);
-            buttonManyTransportTariff3.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 92);
-            buttonManyTransportTariff4.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 124);
-            buttonManyTransportTariff5.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == int.MaxValue);
-            buttonManyTransportTariff6.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate           && x.QuantityOfUsages == 46);
-            buttonManyTransportTariff7.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate           && x.QuantityOfUsages == 62);
-            buttonManyTransportTariff8.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate           && x.QuantityOfUsages == 92);
-            buttonManyTransportTariff9.Visible  = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate           && x.QuantityOfUsages == 124);
-            buttonManyTransportTariff10.Visible = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate           && x.QuantityOfUsages == int.MaxValue);
+                listBoxTariffsManyTransports.Items.Add("Поїздки     Дійсний від Дійсний до  Ціна тарифу");
+                listBoxTariffsManyTransports.Items.AddRange(DB.TariffManyTransportsTable
+                                                              .Where(x => x.TariffGroup.GroupCategory == ticket.Account.FacilityCategory)
+                                                              .OrderBy(x => x.TariffGroup.StartDate)
+                                                              .ThenBy(x => x.QuantityOfUsages)
+                                                              .Select(x => $"{(x.QuantityOfUsages == int.MaxValue ? "Безлімітний" : x.QuantityOfUsages),-12}" +
+                                                                           $"{x.TariffGroup.StartDate,-12:dd/MM/yyyy}" +
+                                                                           $"{x.TariffGroup.EndDate,-12:dd/MM/yyyy}" +
+                                                                           $"{x.PriceForTariff:C2}").ToArray());
+                listBoxTariffsSingleTransport.Items.Add("Замовлені поїздки   Ціна за одну поїздку");
+                for (int i = 0; i < DB.TariffOneTransportTable.Count(); i++)
+                {
+                    listBoxTariffsSingleTransport.Items.Add($"{DB.TariffOneTransportTable.ToList()[i].MinUsagesQuantityForCoefficient,2}" +
+                                                            $"{(i + 1 < DB.TariffOneTransportTable.Count() ? "-" + (DB.TariffOneTransportTable.ToList()[i + 1].MinUsagesQuantityForCoefficient - 1).ToString() : "+"),-18}" +
+                                                            $"{ConstValues.ONE_USAGE_COST - DB.TariffOneTransportTable.ToList()[i].CoefficientNumber * ConstValues.COEFFICIENT_QUANTIFICATOR:C2}");
+                }
+            })));
+
+            //for Window2_2
+            Task Window2_2Task = Task.Run(() => this.Invoke(new Action(() => 
+            {
+                buttonManyTransportTariff1.Visible = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 46);
+                buttonManyTransportTariff2.Visible = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 62);
+                buttonManyTransportTariff3.Visible = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 92);
+                buttonManyTransportTariff4.Visible = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == 124);
+                buttonManyTransportTariff5.Visible = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartSecondHalfMonthDate && x.QuantityOfUsages == int.MaxValue);
+                buttonManyTransportTariff6.Visible = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == 46);
+                buttonManyTransportTariff7.Visible = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == 62);
+                buttonManyTransportTariff8.Visible = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == 92);
+                buttonManyTransportTariff9.Visible = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == 124);
+                buttonManyTransportTariff10.Visible = DB.TariffManyTransportsTable.Any(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory && x.TariffGroup.StartDate == StartMonthDate && x.QuantityOfUsages == int.MaxValue);
+            })));
+            await Task.WhenAll(new Task[] { Window2_2Task, Window2_3Task });
         }
 
         private void buttonWindow2Exit_Click(object sender, EventArgs e)
@@ -273,7 +286,7 @@ namespace TicketReplenisherApp
             panelWindow2_2Central.Visible = false;
         }
 
-        private void ButtonManyTransortTariffClick(int QuantityOfUses, DateTime StartDate)
+        private void ButtonManyTransportTariffClick(int QuantityOfUses, DateTime StartDate)
         {
             tariff = new Tariff(DB.TariffManyTransportsTable.Where(x => x.TariffGroup.GroupCategory == this.ticket.Account.FacilityCategory
                                                                 && x.TariffGroup.StartDate == StartDate 
@@ -282,16 +295,16 @@ namespace TicketReplenisherApp
             panelWindow2.Visible = false;
             PanelWindowOrderPrepareOpen();
         }
-        private void buttonManyTransportTariff1_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(46          , StartSecondHalfMonthDate);
-        private void buttonManyTransportTariff2_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(62          , StartSecondHalfMonthDate);
-        private void buttonManyTransportTariff3_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(92          , StartSecondHalfMonthDate);
-        private void buttonManyTransportTariff4_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(124         , StartSecondHalfMonthDate);
-        private void buttonManyTransportTariff5_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(int.MaxValue, StartSecondHalfMonthDate);
-        private void buttonManyTransportTariff6_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(46          , StartMonthDate);
-        private void buttonManyTransportTariff7_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(62          , StartMonthDate);
-        private void buttonManyTransportTariff8_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(92          , StartMonthDate);
-        private void buttonManyTransportTariff9_Click (object sender, EventArgs e) => ButtonManyTransortTariffClick(124         , StartMonthDate);
-        private void buttonManyTransportTariff10_Click(object sender, EventArgs e) => ButtonManyTransortTariffClick(int.MaxValue, StartMonthDate);
+        private void buttonManyTransportTariff1_Click (object sender, EventArgs e) => ButtonManyTransportTariffClick(46          , StartSecondHalfMonthDate);
+        private void buttonManyTransportTariff2_Click (object sender, EventArgs e) => ButtonManyTransportTariffClick(62          , StartSecondHalfMonthDate);
+        private void buttonManyTransportTariff3_Click (object sender, EventArgs e) => ButtonManyTransportTariffClick(92          , StartSecondHalfMonthDate);
+        private void buttonManyTransportTariff4_Click (object sender, EventArgs e) => ButtonManyTransportTariffClick(124         , StartSecondHalfMonthDate);
+        private void buttonManyTransportTariff5_Click (object sender, EventArgs e) => ButtonManyTransportTariffClick(int.MaxValue, StartSecondHalfMonthDate);
+        private void buttonManyTransportTariff6_Click (object sender, EventArgs e) => ButtonManyTransportTariffClick(46          , StartMonthDate);
+        private void buttonManyTransportTariff7_Click (object sender, EventArgs e) => ButtonManyTransportTariffClick(62          , StartMonthDate);
+        private void buttonManyTransportTariff8_Click (object sender, EventArgs e) => ButtonManyTransportTariffClick(92          , StartMonthDate);
+        private void buttonManyTransportTariff9_Click (object sender, EventArgs e) => ButtonManyTransportTariffClick(124         , StartMonthDate);
+        private void buttonManyTransportTariff10_Click(object sender, EventArgs e) => ButtonManyTransportTariffClick(int.MaxValue, StartMonthDate);
 
         //
         // Window 2_3
@@ -435,8 +448,24 @@ namespace TicketReplenisherApp
                                                                   && (x.Tariff as TariffManyTransports).TariffGroup.StartDate == StartSecondHalfMonthDate)
                                                                .Sum(x => IsQuantityOfUses ? x.QuantityOfUses : x.QuantityOfTariffs));
         }
+        private void SetAdministrativeWindowGeneralInformation()
+        {
+            Func<DateTime, Func<OrderedTariffs, long>, long> ManyTransSum = (StartDate, LambdaSum) => DB.OrderedTariffTable.Where(x => x.Tariff is TariffManyTransports && (x.Tariff as TariffManyTransports).TariffGroup.StartDate == StartDate).Sum(LambdaSum);
+            Func<Func<OrderedTariffs, long>, long> OneTransSum = (LambdaSum) => DB.OrderedTariffTable.Where(x => x.Tariff is TariffOneTransport).Sum(LambdaSum);
+            Func<Func<OrderedTariffs, long>, long> TotalSum = (LambdaSum) => DB.OrderedTariffTable.Sum(LambdaSum);
+
+            labelAdministrativeTariffManyTransMonth.Text = ManyTransSum(StartMonthDate, x => x.QuantityOfTariffs).ToString();
+            labelAdministrativeUsesManyTransMonth.Text = ManyTransSum(StartMonthDate, x => x.QuantityOfUses).ToString();
+            labelAdministrativeTariffManyTransHalfmonth.Text = ManyTransSum(StartSecondHalfMonthDate, x => x.QuantityOfTariffs).ToString();
+            labelAdministrativeUsesManyTransHalfmonth.Text = ManyTransSum(StartSecondHalfMonthDate, x => x.QuantityOfUses).ToString();
+            labelAdministrativeTariffOneTrans.Text = OneTransSum(x => x.QuantityOfTariffs).ToString();
+            labelAdministrativeUsesOneTrans.Text = OneTransSum(x => x.QuantityOfUses).ToString();
+            labelAdministrativeTariffTotal.Text = TotalSum(x => x.QuantityOfTariffs).ToString();
+            labelAdministrativeUsesTotal.Text = TotalSum(x => x.QuantityOfUses).ToString();
+        }
         private void OpenAdministrativeWindow()
         {
+            Task.Run(() => this.Invoke(new Action(() => SetAdministrativeWindowGeneralInformation())));
             comboBoxDatePicker.Items.Clear();
             comboBoxDatePicker.Items.AddRange(DB.OrderedTariffTable.OrderBy(x => x.DateOfOrder).Select(x => $"{x.DateOfOrder:MM/yyyy}").ToArray().Distinct().ToArray());
             IsHalfMonth = false;

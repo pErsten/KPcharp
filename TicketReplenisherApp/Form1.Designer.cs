@@ -101,6 +101,21 @@ namespace TicketReplenisherApp
             this.buttonWindowOrderPrepareCancel = new System.Windows.Forms.Button();
             this.panelWindowAdministrativeMain = new System.Windows.Forms.Panel();
             this.panelAdministrativeGeneral = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelAdministrativeTotalRowHeader = new System.Windows.Forms.Label();
+            this.labelAdministrativeTariffTotal = new System.Windows.Forms.Label();
+            this.labelAdministrativeUsesTotal = new System.Windows.Forms.Label();
+            this.labelAdministrativeOneTransRowHeader = new System.Windows.Forms.Label();
+            this.labelAdministrativeTariffOneTrans = new System.Windows.Forms.Label();
+            this.labelAdministrativeUsesOneTrans = new System.Windows.Forms.Label();
+            this.labelAdministrativeUsesManyTransHalfmonth = new System.Windows.Forms.Label();
+            this.labelAdministrativeManyTransHalfmonthRowHeader = new System.Windows.Forms.Label();
+            this.labelAdministrativeTariffManyTransHalfmonth = new System.Windows.Forms.Label();
+            this.labelAdministrativeManyTransMonthRowHeader = new System.Windows.Forms.Label();
+            this.labelAdministrativeTariffManyTransMonth = new System.Windows.Forms.Label();
+            this.labelAdministrativeUsesManyTransMonth = new System.Windows.Forms.Label();
+            this.labelAdministrativeTariffQuantityColumnHeader = new System.Windows.Forms.Label();
+            this.labelAdministrativeUsesQuantityColumnHeader = new System.Windows.Forms.Label();
             this.panelAdministrativeTariffSetup = new System.Windows.Forms.Panel();
             this.panelGraphHolder = new System.Windows.Forms.Panel();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
@@ -141,6 +156,8 @@ namespace TicketReplenisherApp
             this.panelIsByCard.SuspendLayout();
             this.panelWindowOrderPrepareUp.SuspendLayout();
             this.panelWindowAdministrativeMain.SuspendLayout();
+            this.panelAdministrativeGeneral.SuspendLayout();
+            this.tableLayoutPanel9.SuspendLayout();
             this.panelAdministrativeTariffSetup.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.panelAdministrativeSide.SuspendLayout();
@@ -239,6 +256,7 @@ namespace TicketReplenisherApp
             // 
             // tableLayoutPanel7
             // 
+            this.tableLayoutPanel7.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tableLayoutPanel7.BackgroundImage")));
             this.tableLayoutPanel7.ColumnCount = 6;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
@@ -931,7 +949,7 @@ namespace TicketReplenisherApp
             this.labelWindow2UpTariffHeader.Name = "labelWindow2UpTariffHeader";
             this.labelWindow2UpTariffHeader.Size = new System.Drawing.Size(379, 32);
             this.labelWindow2UpTariffHeader.TabIndex = 2;
-            this.labelWindow2UpTariffHeader.Text = "Замовлений тариф";
+            this.labelWindow2UpTariffHeader.Text = "Замовлений тариф:";
             this.labelWindow2UpTariffHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonWindow2Exit
@@ -1222,11 +1240,205 @@ namespace TicketReplenisherApp
             // panelAdministrativeGeneral
             // 
             this.panelAdministrativeGeneral.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.panelAdministrativeGeneral.Controls.Add(this.tableLayoutPanel9);
             this.panelAdministrativeGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelAdministrativeGeneral.Location = new System.Drawing.Point(250, 0);
             this.panelAdministrativeGeneral.Name = "panelAdministrativeGeneral";
+            this.panelAdministrativeGeneral.Padding = new System.Windows.Forms.Padding(50, 50, 50, 150);
             this.panelAdministrativeGeneral.Size = new System.Drawing.Size(775, 599);
             this.panelAdministrativeGeneral.TabIndex = 2;
+            // 
+            // tableLayoutPanel9
+            // 
+            this.tableLayoutPanel9.ColumnCount = 3;
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeTotalRowHeader, 0, 4);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeTariffTotal, 0, 4);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeUsesTotal, 0, 4);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeOneTransRowHeader, 0, 3);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeTariffOneTrans, 0, 3);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeUsesOneTrans, 0, 3);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeUsesManyTransHalfmonth, 0, 2);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeManyTransHalfmonthRowHeader, 0, 2);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeTariffManyTransHalfmonth, 0, 2);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeManyTransMonthRowHeader, 0, 1);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeTariffManyTransMonth, 0, 1);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeUsesManyTransMonth, 0, 1);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeTariffQuantityColumnHeader, 1, 0);
+            this.tableLayoutPanel9.Controls.Add(this.labelAdministrativeUsesQuantityColumnHeader, 2, 0);
+            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(50, 50);
+            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            this.tableLayoutPanel9.RowCount = 5;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(675, 399);
+            this.tableLayoutPanel9.TabIndex = 0;
+            // 
+            // labelAdministrativeTotalRowHeader
+            // 
+            this.labelAdministrativeTotalRowHeader.AutoSize = true;
+            this.labelAdministrativeTotalRowHeader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeTotalRowHeader.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeTotalRowHeader.Location = new System.Drawing.Point(3, 316);
+            this.labelAdministrativeTotalRowHeader.Name = "labelAdministrativeTotalRowHeader";
+            this.labelAdministrativeTotalRowHeader.Size = new System.Drawing.Size(219, 83);
+            this.labelAdministrativeTotalRowHeader.TabIndex = 21;
+            this.labelAdministrativeTotalRowHeader.Text = "Всього:";
+            this.labelAdministrativeTotalRowHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeTariffTotal
+            // 
+            this.labelAdministrativeTariffTotal.AutoSize = true;
+            this.labelAdministrativeTariffTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeTariffTotal.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeTariffTotal.Location = new System.Drawing.Point(228, 316);
+            this.labelAdministrativeTariffTotal.Name = "labelAdministrativeTariffTotal";
+            this.labelAdministrativeTariffTotal.Size = new System.Drawing.Size(219, 83);
+            this.labelAdministrativeTariffTotal.TabIndex = 20;
+            this.labelAdministrativeTariffTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeUsesTotal
+            // 
+            this.labelAdministrativeUsesTotal.AutoSize = true;
+            this.labelAdministrativeUsesTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeUsesTotal.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeUsesTotal.Location = new System.Drawing.Point(453, 316);
+            this.labelAdministrativeUsesTotal.Name = "labelAdministrativeUsesTotal";
+            this.labelAdministrativeUsesTotal.Size = new System.Drawing.Size(219, 83);
+            this.labelAdministrativeUsesTotal.TabIndex = 19;
+            this.labelAdministrativeUsesTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeOneTransRowHeader
+            // 
+            this.labelAdministrativeOneTransRowHeader.AutoSize = true;
+            this.labelAdministrativeOneTransRowHeader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeOneTransRowHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeOneTransRowHeader.Location = new System.Drawing.Point(3, 237);
+            this.labelAdministrativeOneTransRowHeader.Name = "labelAdministrativeOneTransRowHeader";
+            this.labelAdministrativeOneTransRowHeader.Size = new System.Drawing.Size(219, 79);
+            this.labelAdministrativeOneTransRowHeader.TabIndex = 18;
+            this.labelAdministrativeOneTransRowHeader.Text = "Для міської електрички:";
+            this.labelAdministrativeOneTransRowHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeTariffOneTrans
+            // 
+            this.labelAdministrativeTariffOneTrans.AutoSize = true;
+            this.labelAdministrativeTariffOneTrans.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeTariffOneTrans.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeTariffOneTrans.Location = new System.Drawing.Point(228, 237);
+            this.labelAdministrativeTariffOneTrans.Name = "labelAdministrativeTariffOneTrans";
+            this.labelAdministrativeTariffOneTrans.Size = new System.Drawing.Size(219, 79);
+            this.labelAdministrativeTariffOneTrans.TabIndex = 17;
+            this.labelAdministrativeTariffOneTrans.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeUsesOneTrans
+            // 
+            this.labelAdministrativeUsesOneTrans.AutoSize = true;
+            this.labelAdministrativeUsesOneTrans.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeUsesOneTrans.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeUsesOneTrans.Location = new System.Drawing.Point(453, 237);
+            this.labelAdministrativeUsesOneTrans.Name = "labelAdministrativeUsesOneTrans";
+            this.labelAdministrativeUsesOneTrans.Size = new System.Drawing.Size(219, 79);
+            this.labelAdministrativeUsesOneTrans.TabIndex = 16;
+            this.labelAdministrativeUsesOneTrans.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeUsesManyTransHalfmonth
+            // 
+            this.labelAdministrativeUsesManyTransHalfmonth.AutoSize = true;
+            this.labelAdministrativeUsesManyTransHalfmonth.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeUsesManyTransHalfmonth.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeUsesManyTransHalfmonth.Location = new System.Drawing.Point(453, 158);
+            this.labelAdministrativeUsesManyTransHalfmonth.Name = "labelAdministrativeUsesManyTransHalfmonth";
+            this.labelAdministrativeUsesManyTransHalfmonth.Size = new System.Drawing.Size(219, 79);
+            this.labelAdministrativeUsesManyTransHalfmonth.TabIndex = 15;
+            this.labelAdministrativeUsesManyTransHalfmonth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeManyTransHalfmonthRowHeader
+            // 
+            this.labelAdministrativeManyTransHalfmonthRowHeader.AutoSize = true;
+            this.labelAdministrativeManyTransHalfmonthRowHeader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeManyTransHalfmonthRowHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeManyTransHalfmonthRowHeader.Location = new System.Drawing.Point(3, 158);
+            this.labelAdministrativeManyTransHalfmonthRowHeader.Name = "labelAdministrativeManyTransHalfmonthRowHeader";
+            this.labelAdministrativeManyTransHalfmonthRowHeader.Size = new System.Drawing.Size(219, 79);
+            this.labelAdministrativeManyTransHalfmonthRowHeader.TabIndex = 14;
+            this.labelAdministrativeManyTransHalfmonthRowHeader.Text = "Для громадського транспорту на півмісяця:";
+            this.labelAdministrativeManyTransHalfmonthRowHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeTariffManyTransHalfmonth
+            // 
+            this.labelAdministrativeTariffManyTransHalfmonth.AutoSize = true;
+            this.labelAdministrativeTariffManyTransHalfmonth.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeTariffManyTransHalfmonth.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeTariffManyTransHalfmonth.Location = new System.Drawing.Point(228, 158);
+            this.labelAdministrativeTariffManyTransHalfmonth.Name = "labelAdministrativeTariffManyTransHalfmonth";
+            this.labelAdministrativeTariffManyTransHalfmonth.Size = new System.Drawing.Size(219, 79);
+            this.labelAdministrativeTariffManyTransHalfmonth.TabIndex = 13;
+            this.labelAdministrativeTariffManyTransHalfmonth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeManyTransMonthRowHeader
+            // 
+            this.labelAdministrativeManyTransMonthRowHeader.AutoSize = true;
+            this.labelAdministrativeManyTransMonthRowHeader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeManyTransMonthRowHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeManyTransMonthRowHeader.Location = new System.Drawing.Point(3, 79);
+            this.labelAdministrativeManyTransMonthRowHeader.Name = "labelAdministrativeManyTransMonthRowHeader";
+            this.labelAdministrativeManyTransMonthRowHeader.Size = new System.Drawing.Size(219, 79);
+            this.labelAdministrativeManyTransMonthRowHeader.TabIndex = 12;
+            this.labelAdministrativeManyTransMonthRowHeader.Text = "Для громадського транспорту на місяць:";
+            this.labelAdministrativeManyTransMonthRowHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeTariffManyTransMonth
+            // 
+            this.labelAdministrativeTariffManyTransMonth.AutoSize = true;
+            this.labelAdministrativeTariffManyTransMonth.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeTariffManyTransMonth.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeTariffManyTransMonth.Location = new System.Drawing.Point(228, 79);
+            this.labelAdministrativeTariffManyTransMonth.Name = "labelAdministrativeTariffManyTransMonth";
+            this.labelAdministrativeTariffManyTransMonth.Size = new System.Drawing.Size(219, 79);
+            this.labelAdministrativeTariffManyTransMonth.TabIndex = 11;
+            this.labelAdministrativeTariffManyTransMonth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeUsesManyTransMonth
+            // 
+            this.labelAdministrativeUsesManyTransMonth.AutoSize = true;
+            this.labelAdministrativeUsesManyTransMonth.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeUsesManyTransMonth.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeUsesManyTransMonth.Location = new System.Drawing.Point(453, 79);
+            this.labelAdministrativeUsesManyTransMonth.Name = "labelAdministrativeUsesManyTransMonth";
+            this.labelAdministrativeUsesManyTransMonth.Size = new System.Drawing.Size(219, 79);
+            this.labelAdministrativeUsesManyTransMonth.TabIndex = 9;
+            this.labelAdministrativeUsesManyTransMonth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeTariffQuantityColumnHeader
+            // 
+            this.labelAdministrativeTariffQuantityColumnHeader.AutoSize = true;
+            this.labelAdministrativeTariffQuantityColumnHeader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeTariffQuantityColumnHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeTariffQuantityColumnHeader.Location = new System.Drawing.Point(228, 0);
+            this.labelAdministrativeTariffQuantityColumnHeader.Name = "labelAdministrativeTariffQuantityColumnHeader";
+            this.labelAdministrativeTariffQuantityColumnHeader.Size = new System.Drawing.Size(219, 79);
+            this.labelAdministrativeTariffQuantityColumnHeader.TabIndex = 8;
+            this.labelAdministrativeTariffQuantityColumnHeader.Text = "Кількість замовлених тарифів:";
+            this.labelAdministrativeTariffQuantityColumnHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAdministrativeUsesQuantityColumnHeader
+            // 
+            this.labelAdministrativeUsesQuantityColumnHeader.AutoSize = true;
+            this.labelAdministrativeUsesQuantityColumnHeader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAdministrativeUsesQuantityColumnHeader.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelAdministrativeUsesQuantityColumnHeader.Location = new System.Drawing.Point(453, 0);
+            this.labelAdministrativeUsesQuantityColumnHeader.Name = "labelAdministrativeUsesQuantityColumnHeader";
+            this.labelAdministrativeUsesQuantityColumnHeader.Size = new System.Drawing.Size(219, 79);
+            this.labelAdministrativeUsesQuantityColumnHeader.TabIndex = 10;
+            this.labelAdministrativeUsesQuantityColumnHeader.Text = "Кількість замовлених поїздок:";
+            this.labelAdministrativeUsesQuantityColumnHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelAdministrativeTariffSetup
             // 
@@ -1468,6 +1680,9 @@ namespace TicketReplenisherApp
             this.panelIsByCard.ResumeLayout(false);
             this.panelWindowOrderPrepareUp.ResumeLayout(false);
             this.panelWindowAdministrativeMain.ResumeLayout(false);
+            this.panelAdministrativeGeneral.ResumeLayout(false);
+            this.tableLayoutPanel9.ResumeLayout(false);
+            this.tableLayoutPanel9.PerformLayout();
             this.panelAdministrativeTariffSetup.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.panelAdministrativeSide.ResumeLayout(false);
@@ -1555,7 +1770,6 @@ namespace TicketReplenisherApp
         public System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         public System.Windows.Forms.Label labelTotalPrice;
         public System.Windows.Forms.Label labelTotalPriceHeader;
-        public System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label labelIsByCard;
         public System.Windows.Forms.Label labelMonthsOrderedHeader;
         public System.Windows.Forms.Label labelMonthsOrdered;
@@ -1592,6 +1806,21 @@ namespace TicketReplenisherApp
         private System.Windows.Forms.ComboBox comboBoxValuePicker;
         private System.Windows.Forms.Panel panelGraphHolder;
         private System.Windows.Forms.Panel panelAdministrativeGeneral;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
+        private System.Windows.Forms.Label labelAdministrativeTotalRowHeader;
+        private System.Windows.Forms.Label labelAdministrativeTariffTotal;
+        private System.Windows.Forms.Label labelAdministrativeUsesTotal;
+        private System.Windows.Forms.Label labelAdministrativeOneTransRowHeader;
+        private System.Windows.Forms.Label labelAdministrativeTariffOneTrans;
+        private System.Windows.Forms.Label labelAdministrativeUsesOneTrans;
+        private System.Windows.Forms.Label labelAdministrativeUsesManyTransHalfmonth;
+        private System.Windows.Forms.Label labelAdministrativeManyTransHalfmonthRowHeader;
+        private System.Windows.Forms.Label labelAdministrativeTariffManyTransHalfmonth;
+        private System.Windows.Forms.Label labelAdministrativeManyTransMonthRowHeader;
+        private System.Windows.Forms.Label labelAdministrativeTariffManyTransMonth;
+        private System.Windows.Forms.Label labelAdministrativeUsesManyTransMonth;
+        private System.Windows.Forms.Label labelAdministrativeTariffQuantityColumnHeader;
+        private System.Windows.Forms.Label labelAdministrativeUsesQuantityColumnHeader;
     }
 }
 
